@@ -24,8 +24,7 @@
     "start": "ts-node ./server.ts",
     "seed": "node ./seeds/seed.js",
     "watch": "nodemon --watch \"./**/*.{ts,graphql,json}\" --exec \"node --experimental-specifier-resolution=node --loader ts-node/esm\" ./server.ts",
-    "dev": "tsc-watch --onSuccess \"npm run watch\"",
-    "build": "tsc-watch && exit && node ./dist/server.js"
+    "dev": "tsc-watch --onSuccess \"npm run watch\""
   },
   "repository": {
     "type": "git",
