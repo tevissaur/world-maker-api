@@ -2,6 +2,7 @@
 Types
 
 """
+union Subject = Character | City | Class | Country | God | Landmark | Monster | Race | Region | Religion | User | World
 
 type Character {
   _id: ID
