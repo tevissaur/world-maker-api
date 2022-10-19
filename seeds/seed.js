@@ -1,89 +1,89 @@
 
 const db = require('../dist/config/connection')
 const { Character, City, Country, Class, God, Monster, Organization, Race, Region, Religion, User, World } = require('../dist/models')
-const { Types: { ObjectId } } = require('mongoose')
+const { Schema, Types } = require('mongoose')
 
 let characterIds = [
-    ObjectId(),
-    ObjectId(),
-    ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
 ]
 
 let classIds = [
-    ObjectId(),
-    ObjectId(),
-    ObjectId(),
-    ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
 ]
 
 let orgIds = [
-    ObjectId(),
-    ObjectId(),
-    ObjectId(),
-    ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
 ]
 
 let monsterIds = [
-    ObjectId(),
-    ObjectId(),
-    ObjectId(),
-    ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
 ]
 
 let cityIds = [
-    ObjectId(),
-    ObjectId(),
-    ObjectId(),
-    ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
 ]
 
 let countryIds = [
-    ObjectId(),
-    ObjectId(),
-    ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
 ]
 
 let godIds = [
-    ObjectId(),
-    ObjectId(),
-    ObjectId(),
-    ObjectId(),
-    ObjectId(),
-    ObjectId(),
-    ObjectId(),
-    ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
 ]
 
 let raceIds = [
-    ObjectId(),
-    ObjectId(),
-    ObjectId(),
-    ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
 ]
 
 let religionIds = [
-    ObjectId(),
-    ObjectId(),
-    ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
 ]
 
 let userIds = [
-    ObjectId(),
-    ObjectId(),
-    ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
 ]
 
 let worldIds = [
-    ObjectId(),
-    ObjectId(),
-    ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
 ]
 
 let regionIds = [
-    ObjectId(),
-    ObjectId(),
-    ObjectId(),
-    ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
+    Types.ObjectId(),
 ]
 
 const monsterData = [
@@ -387,9 +387,9 @@ const userData = {
     username: 'Tevissaur',
     email: 'tevis@email.com',
     password: 'pass12345',
-    worlds: [
-        worldIds[0]
-    ]
+    // worlds: [
+    //     worldIds[0]
+    // ]
 }
 
 
@@ -408,21 +408,21 @@ db.once('open', async () => {
     await User.deleteMany({})
     await World.deleteMany({})
 
-    const characters = await Character.insertMany(characterData)
-    const cities = await City.insertMany(cityData)
-    const countries = await Country.insertMany(countryData)
+    // const characters = await Character.insertMany(characterData)
+    // const cities = await City.insertMany(cityData)
+    // const countries = await Country.insertMany(countryData)
     // const classes = await Class.insertMany(classData)
-    const gods = await God.insertMany(godsData)
+    // const gods = await God.insertMany(godsData)
     // const histories = await History.insertMany(historyData)
     // const monsters= await Monster.insertMany(monsterData)
     // const organizations = await Organization.insertMany(orgData)
     // const quotes = await Quote.insertMany(quoteData)
-    const races = await Race.insertMany(raceData)
-    const regions = await Region.insertMany(regionData)
-    const religions = await Religion.insertMany(religionData)
-    const users = await User.create(userData)
+    // const races = await Race.insertMany(raceData)
+    // const regions = await Region.insertMany(regionData)
+    // const religions = await Religion.insertMany(religionData)
+    await User.create(userData)
     // const users = await User.insertMany(userData)
-    const worlds = await World.insertMany(worldData)
+    // const worlds = await World.insertMany(worldData)
 
     console.log('all done!')
     process.exit(0)

@@ -21,94 +21,10 @@ const resolvers = {
             return Class.find()
         },
         me: async (parent, { _id }) => {
-            return User.findById(_id).populate(
-                {
-                    path: 'worlds',
-                    model: 'World',
-                    populate: [
-                        {
-                            path: 'regions',
-                            model: 'Region',
-                            populate: {
-                                path: 'countries',
-                                model: 'Country',
-                                populate: [
-                                    {
-                                        path: 'cities',
-                                        model: 'City'
-                                    },
-                                    {
-                                        path: 'religions',
-                                        model: 'Religion',
-                                        populate: {
-                                            path: 'gods',
-                                            model: 'God'
-                                        }
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            path: 'religions',
-                            model: 'Religion',
-                            populate: {
-                                path: 'gods',
-                                model: 'God'
-                            }
-                        },
-                        {
-                            path: 'characters',
-                            model: 'Character',
-                            populate: {
-                                path: 'race',
-                                model: 'Race'
-                            }
-                        }
-                    ]
-                }
-            )
+            return User.findById(_id)
         },
-        worlds: async (parent, args) => {
-            return World.find().populate([
-                {
-                    path: 'regions',
-                    model: 'Region',
-                    populate: {
-                        path: 'countries',
-                        model: 'Country',
-                        populate: [
-                            {
-                                path: 'cities',
-                                model: 'City'
-                            },
-                            {
-                                path: 'religions',
-                                model: 'Religion',
-                                populate: {
-                                    path: 'gods',
-                                    model: 'God'
-                                }
-                            }
-                        ]
-                    }
-                },
-                {
-                    path: 'religions',
-                    model: 'Religion',
-                    populate: {
-                        path: 'gods',
-                        model: 'God'
-                    }
-                },
-                {
-                    path: 'characters',
-                    model: 'Character',
-                    populate: {
-                        path: 'race',
-                        model: 'Race'
-                    }
-                }
-            ])
+        worlds: async () => {
+            return World.find()
         },
         userWorlds: async (parent, { creator }) => {
             try {
@@ -121,65 +37,18 @@ const resolvers = {
         },
         world: async (parent, { name }) => {
             try {
-                console.log(name)
-                const world = await World.findOne({ name }).populate([
-                    {
-                        path: 'regions',
-                        model: 'Region',
-                        populate: {
-                            path: 'countries',
-                            model: 'Country',
-                            populate: [
-                                {
-                                    path: 'cities',
-                                    model: 'City'
-                                },
-                                {
-                                    path: 'religions',
-                                    model: 'Religion',
-                                    populate: {
-                                        path: 'gods',
-                                        model: 'God'
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        path: 'religions',
-                        model: 'Religion',
-                        populate: {
-                            path: 'gods',
-                            model: 'God'
-                        }
-                    },
-                    {
-                        path: 'characters',
-                        model: 'Character',
-                        populate: {
-                            path: 'race',
-                            model: 'Race'
-                        }
-                    }
-                ])
-                return world
+                return await World.findOne({ name })
             } catch (err) {
-                console.log(err)
                 return err
             }
 
         },
         singleCharacter: async (parent, { _id }) => {
-            return Character.findById(_id).populate([
-                {
-                    path: 'race',
-                    model: 'Race'
-                }
-            ])
+            return await Character.findById(_id).populate('race')
         },
         singleReligion: async (parent, { _id }) => {
             try {
-                return Religion.findById(_id).populate('gods')
+                return await Religion.findById(_id).populate('gods')
             } catch (error) {
                 console.log(error)
                 return error
@@ -187,7 +56,7 @@ const resolvers = {
         },
         singleGod: async (parent, { _id }) => {
             try {
-                return God.findById(_id)
+                return await God.findById(_id)
             } catch (error) {
                 console.log(error)
                 return error
@@ -195,7 +64,7 @@ const resolvers = {
         },
         singleMonster: async (parent, { _id }) => {
             try {
-                return Monster.findById(_id)
+                return await Monster.findById(_id)
             } catch (error) {
                 console.log(error)
                 return error
@@ -203,7 +72,7 @@ const resolvers = {
         },
         singleRegion: async (parent, { _id }) => {
             try {
-                return Region.findById(_id)
+                return await Region.findById(_id)
             } catch (error) {
                 console.log(error)
                 return error
@@ -247,52 +116,7 @@ const resolvers = {
         },
         createWorld: async (parent, { world }) => {
             try {
-                const newWorld = await World.create(world)
-                const updatedUser = await User.findOneAndUpdate({ _id: world.creator }, {
-                    $push: { worlds: newWorld }
-                }, {
-                    new: true
-                })
-                return newWorld.populate([
-                    {
-                        path: 'regions',
-                        model: 'Region',
-                        populate: {
-                            path: 'countries',
-                            model: 'Country',
-                            populate: [
-                                {
-                                    path: 'cities',
-                                    model: 'City'
-                                },
-                                {
-                                    path: 'religions',
-                                    model: 'Religion',
-                                    populate: {
-                                        path: 'gods',
-                                        model: 'God'
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        path: 'religions',
-                        model: 'Religion',
-                        populate: {
-                            path: 'gods',
-                            model: 'God'
-                        }
-                    },
-                    {
-                        path: 'characters',
-                        model: 'Character',
-                        populate: {
-                            path: 'race',
-                            model: 'Race'
-                        }
-                    }
-                ])
+                return await World.create(world)
             } catch (err) {
                 return err
             }
@@ -300,70 +124,22 @@ const resolvers = {
         // TODO: Optimize this shit
         updateWorld: async (parent, { world }) => {
             try {
-                const updatedWorld = await World.findByIdAndUpdate(world._id, { $set: { ...world } }, { new: true })
-                console.log(updatedWorld)
-                return updatedWorld
+                return await World.findByIdAndUpdate(world._id, { $set: { ...world } }, { new: true })
             } catch (err) {
                 return err
             }
         },
         deleteWorld: async (parent, { worldId }) => {
             try {
-                const deleted = await World.findByIdAndDelete(worldId)
-                console.log(deleted)
-                return deleted
+                await World.findByIdAndDelete(worldId)
+                return worldId
             } catch (err) {
                 return err
             }
         },
-        createCharacter: async (parent, { character, worldId }) => {
+        createCharacter: async (parent, { character }) => {
             try {
-                const newCharacter = await Character.create(character)
-                const updatedWorld = await World.findOneAndUpdate({ _id: worldId }, {
-                    $push: { characters: newCharacter }
-                }, {
-                    new: true
-                }).populate([
-                    {
-                        path: 'regions',
-                        model: 'Region',
-                        populate: {
-                            path: 'countries',
-                            model: 'Country',
-                            populate: [
-                                {
-                                    path: 'cities',
-                                    model: 'City'
-                                },
-                                {
-                                    path: 'religions',
-                                    model: 'Religion',
-                                    populate: {
-                                        path: 'gods',
-                                        model: 'God'
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        path: 'religions',
-                        model: 'Religion',
-                        populate: {
-                            path: 'gods',
-                            model: 'God'
-                        }
-                    },
-                    {
-                        path: 'characters',
-                        model: 'Character',
-                        populate: {
-                            path: 'race',
-                            model: 'Race'
-                        }
-                    }
-                ])
-                return updatedWorld
+                return await Character.create(character)
             } catch (error) {
                 console.log(error)
             }
@@ -371,270 +147,42 @@ const resolvers = {
         },
         updateCharacter: async (parent, { character, worldId }) => {
             try {
-                const updatedCharacter = await Character.findByIdAndUpdate(character._id, { $set: { ...character } }, { new: true })
-                const world = await World.findById(worldId, { new: true }).populate([
-                    {
-                        path: 'regions',
-                        model: 'Region',
-                        populate: {
-                            path: 'countries',
-                            model: 'Country',
-                            populate: [
-                                {
-                                    path: 'cities',
-                                    model: 'City'
-                                },
-                                {
-                                    path: 'religions',
-                                    model: 'Religion',
-                                    populate: {
-                                        path: 'gods',
-                                        model: 'God'
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        path: 'religions',
-                        model: 'Religion',
-                        populate: {
-                            path: 'gods',
-                            model: 'God'
-                        }
-                    },
-                    {
-                        path: 'characters',
-                        model: 'Character',
-                        populate: {
-                            path: 'race',
-                            model: 'Race'
-                        }
-                    }
-                ])
-                return world
+                return await Character.findByIdAndUpdate(character._id, { $set: { ...character } }, { new: true })
+                
             } catch (error) {
-                console.log(error)
+                return error
             }
 
         },
         deleteCharacter: async (parent, { characterId, worldId }) => {
             try {
-                const deleted = await Character.findByIdAndDelete(characterId)
-                const world = await World.findById(worldId, { new: true }).populate([
-                    {
-                        path: 'regions',
-                        model: 'Region',
-                        populate: {
-                            path: 'countries',
-                            model: 'Country',
-                            populate: [
-                                {
-                                    path: 'cities',
-                                    model: 'City'
-                                },
-                                {
-                                    path: 'religions',
-                                    model: 'Religion',
-                                    populate: {
-                                        path: 'gods',
-                                        model: 'God'
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        path: 'religions',
-                        model: 'Religion',
-                        populate: {
-                            path: 'gods',
-                            model: 'God'
-                        }
-                    },
-                    {
-                        path: 'characters',
-                        model: 'Character',
-                        populate: {
-                            path: 'race',
-                            model: 'Race'
-                        }
-                    }
-                ])
-                return world
+                await Character.findByIdAndDelete(characterId)
+                return characterId
             } catch (error) {
-                console.log(error)
+                return error
             }
 
         },
-        createMonster: async (parent, { monster, worldId, regionId }) => {
+        createMonster: async (parent, { monster }) => {
             try {
-                const newMonster = await Monster.create(monster)
-                const updatedRegion = await Region.findByIdAndUpdate(regionId, {
-                    $push: { monsters: newMonster }
-                }, {
-                    new: true
-                })
-                const world = await World.findById(worldId).populate([
-                    {
-                        path: 'regions',
-                        model: 'Region',
-                        populate: [
-                            {
-                                path: 'countries',
-                                model: 'Country',
-                                populate: [
-                                    {
-                                        path: 'cities',
-                                        model: 'City'
-                                    },
-                                    {
-                                        path: 'religions',
-                                        model: 'Religion',
-                                        populate: {
-                                            path: 'gods',
-                                            model: 'God'
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'monsters',
-                                model: 'Monster'
-                            }
-                        ]
-                    },
-                    {
-                        path: 'religions',
-                        model: 'Religion',
-                        populate: {
-                            path: 'gods',
-                            model: 'God'
-                        }
-                    },
-                    {
-                        path: 'characters',
-                        model: 'Character',
-                        populate: {
-                            path: 'race',
-                            model: 'Race'
-                        }
-                    }
-                ])
-
-                return world
+                return await Monster.create(monster)
             } catch (error) {
-                console.log(error)
+                return error
             }
         },
         updateMonster: async (parent, { monster, worldId, regionId }) => {
             try {
-                const updatedMonster = await Monster.findById(monster._id, { $set: { ...monster } }, { new: true })
-                const world = await World.findById(worldId).populate([
-                    {
-                        path: 'regions',
-                        model: 'Region',
-                        populate: [
-                            {
-                                path: 'countries',
-                                model: 'Country',
-                                populate: [
-                                    {
-                                        path: 'cities',
-                                        model: 'City'
-                                    },
-                                    {
-                                        path: 'religions',
-                                        model: 'Religion',
-                                        populate: {
-                                            path: 'gods',
-                                            model: 'God'
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'monsters',
-                                model: 'Monster'
-                            }
-                        ]
-                    },
-                    {
-                        path: 'religions',
-                        model: 'Religion',
-                        populate: {
-                            path: 'gods',
-                            model: 'God'
-                        }
-                    },
-                    {
-                        path: 'characters',
-                        model: 'Character',
-                        populate: {
-                            path: 'race',
-                            model: 'Race'
-                        }
-                    }
-                ])
-
-                return world
+                return await Monster.findById(monster._id, { $set: { ...monster } }, { new: true })
             } catch (error) {
-                console.log(error)
+                return error
             }
         },
         deleteMonster: async (parent, { monsterId, worldId, regionId }) => {
             try {
-                const deleted = await Monster.findByIdAndDelete(monsterId)
-                const world = await World.findById(worldId).populate([
-                    {
-                        path: 'regions',
-                        model: 'Region',
-                        populate: [
-                            {
-                                path: 'countries',
-                                model: 'Country',
-                                populate: [
-                                    {
-                                        path: 'cities',
-                                        model: 'City'
-                                    },
-                                    {
-                                        path: 'religions',
-                                        model: 'Religion',
-                                        populate: {
-                                            path: 'gods',
-                                            model: 'God'
-                                        }
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'monsters',
-                                model: 'Monster'
-                            }
-                        ]
-                    },
-                    {
-                        path: 'religions',
-                        model: 'Religion',
-                        populate: {
-                            path: 'gods',
-                            model: 'God'
-                        }
-                    },
-                    {
-                        path: 'characters',
-                        model: 'Character',
-                        populate: {
-                            path: 'race',
-                            model: 'Race'
-                        }
-                    }
-                ])
-
-                return world
+                return await Monster.findByIdAndDelete(monsterId)
+                
             } catch (error) {
-                console.log(error)
+                return error
             }
         },
         createRegion: async (parent, { region, worldId }) => {
@@ -644,46 +192,7 @@ const resolvers = {
                     $push: { regions: newRegion }
                 }, {
                     new: true
-                }).populate([
-                    {
-                        path: 'regions',
-                        model: 'Region',
-                        populate: {
-                            path: 'countries',
-                            model: 'Country',
-                            populate: [
-                                {
-                                    path: 'cities',
-                                    model: 'City'
-                                },
-                                {
-                                    path: 'religions',
-                                    model: 'Religion',
-                                    populate: {
-                                        path: 'gods',
-                                        model: 'God'
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        path: 'religions',
-                        model: 'Religion',
-                        populate: {
-                            path: 'gods',
-                            model: 'God'
-                        }
-                    },
-                    {
-                        path: 'characters',
-                        model: 'Character',
-                        populate: {
-                            path: 'race',
-                            model: 'Race'
-                        }
-                    }
-                ])
+                })
                 return updatedWorld
             } catch (error) {
                 console.log(error)

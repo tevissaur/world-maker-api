@@ -1,5 +1,5 @@
 {
-  "name": "forene-wiki-react",
+  "name": "world-builder-api",
   "version": "1.0.0",
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "server.js",
@@ -21,22 +21,23 @@
     "morgan": "^1.10.0"
   },
   "scripts": {
-    "start": "node ./dist/server.js",
+    "start": "ts-node ./server.ts",
     "seed": "node ./seeds/seed.js",
     "watch": "nodemon --watch \"./**/*.{ts,graphql,json}\" --exec \"node --experimental-specifier-resolution=node --loader ts-node/esm\" ./server.ts",
-    "dev": "tsc-watch --onSuccess \"npm run watch\""
+    "dev": "tsc-watch --onSuccess \"npm run watch\"",
+    "build": "tsc-watch && exit && node ./dist/server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tevissaur/forene-wiki-react.git"
+    "url": "git+https://github.com/tevissaur/world-builder-api.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/tevissaur/forene-wiki-react/issues"
+    "url": "https://github.com/tevissaur/world-builder-api/issues"
   },
-  "homepage": "https://github.com/tevissaur/forene-wiki-react#readme",
+  "homepage": "https://github.com/tevissaur/world-builder-api#readme",
   "devDependencies": {
     "@types/express": "^4.17.14",
     "@types/node": "^18.11.0",
