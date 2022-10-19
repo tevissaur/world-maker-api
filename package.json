@@ -21,8 +21,8 @@
     "morgan": "^1.10.0"
   },
   "scripts": {
-    "start": "node ./dist/server.js",
-    "seed": "node seeds/seed.ts",
+    "start": "npm run watch",
+    "seed": "node ./seeds/seed.js",
     "watch": "nodemon --watch \"./**/*.{ts,graphql,json}\" --exec \"node --experimental-specifier-resolution=node --loader ts-node/esm\" ./server.ts",
     "dev": "tsc-watch --onSuccess \"npm run watch\""
   },
