@@ -1,0 +1,46 @@
+{
+  "name": "forene-wiki-react",
+  "version": "1.0.0",
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "server.js",
+  "module": "ES2020",
+  "moduleResolution": "Node",
+  "exports": "./dist/server.js",
+  "dependencies": {
+    "@types/mongoose": "^5.11.97",
+    "apollo-server": "^3.10.3",
+    "apollo-server-express": "^3.6.2",
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "graphql": "^16.3.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.1.1",
+    "morgan": "^1.10.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "seed": "node seeds/seed.ts",
+    "watch": "nodemon --watch \"./**/*.{ts,graphql,json}\" --exec \"node --experimental-specifier-resolution=node --loader ts-node/esm\" ./server.ts",
+    "dev": "tsc-watch --onSuccess \"npm run watch\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tevissaur/forene-wiki-react.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tevissaur/forene-wiki-react/issues"
+  },
+  "homepage": "https://github.com/tevissaur/forene-wiki-react#readme",
+  "devDependencies": {
+    "@types/express": "^4.17.14",
+    "@types/node": "^18.11.0",
+    "ts-node": "^10.9.1",
+    "tsc-watch": "^5.0.3"
+  }
+}

@@ -1,0 +1,10 @@
+import { gql } from "apollo-server-express";
+import { readFileSync } from "fs";
+
+const schema = readFileSync("./schemas/schema.graphql", { encoding: "utf-8" });
+
+const typeDefs = gql`
+  ${schema}
+`;
+
+export default typeDefs;
