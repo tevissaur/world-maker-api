@@ -22,6 +22,7 @@ const CharacterSchema = new mongoose_1.Schema({
         type: String,
         enum: ['Small', 'Medium', 'Large']
     },
+    alignment: String,
     race: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: 'Race'
@@ -34,6 +35,13 @@ const CharacterSchema = new mongoose_1.Schema({
             level: {
                 type: Number,
                 required: true
+            },
+            subClass: {
+                name: String,
+                features: [{
+                        name: String,
+                        requiredLevel: Number
+                    }]
             }
         }],
     backstory: {

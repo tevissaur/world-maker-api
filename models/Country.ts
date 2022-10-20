@@ -11,6 +11,7 @@ interface ICountry {
     name: string;
     government: Government;
     region: Schema.Types.ObjectId;
+    description: string;
 }
 
 
@@ -36,7 +37,8 @@ const countrySchema = new Schema<ICountry>({
     region: {
         type: Schema.Types.ObjectId,
         ref: 'Region'
-    }
+    },
+    description: String
 })
 
 const Country = model<ICountry>('Country', countrySchema)

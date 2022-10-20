@@ -17,6 +17,29 @@ type Article {
   category: Category
 }
 
+type CalendarDay {
+  name: String
+  events: [String]
+}
+type CalendarWeek {
+  numDaysPerWeek: Int
+  days: [CalendarDay]
+}
+type CalendarMonth {
+  name: String
+  numDaysPerMonth: Int
+}
+type Calendar {
+  _id: ID
+  months: [CalendarMonth]
+  numDaysPerYear: Int
+  week: CalendarWeek
+}
+type Event {
+  name: String
+  date: String
+}
+
 type Category {
   _id: ID
   name: String
@@ -24,92 +47,174 @@ type Category {
   subCategories: [Category]
 }
 
+type CharacterClasses {
+  class: Class
+  level: Int
+  subClass: SubClass
+}
+
 type Character {
   _id: ID
+  world: World
+  creator: User
   name: String
   description: String
+  alignment: String
   size: String
   race: Race
-  class: Class
+  classes: [CharacterClasses]
   backstory: String
-  bonds: [String]
-  goals: [String]
-  fears: [String]
+  motives: Motives
+  organizations: [Organization]
   residentCity: City
+  isNPC: Boolean
 }
+
 type City {
   _id: ID
   name: String
+  notableCharacters: [Character]
+  country: Country
 }
+
 type Class {
   _id: ID
   name: String
+  description: String
+  features: [ClassFeatures]
+  subClasses: SubClass
 }
+type SubClass {
+  title: String
+  features: [ClassFeatures]
+}
+type ClassFeatures {
+  name: String
+  requiredLevel: Int
+}
+
+
 type Country {
   _id: ID
   name: String
+  description: String
   government: Government
-  cities: [City]
-  religions: [Religion]
+  region: Region
+}
+type GovernmentMember {
+  character: Character
+  position: String
+}
+type Government {
+  keyMembers: [GovernmentMember]
+  style: String
 }
 
+
+type Religion {
+  _id: ID!
+  name: String
+  description: String
+}
 type God {
   _id: ID!
   name: String!
   description: String!
-  domains: [String]
+  domains: [GodDomain]
   symbol: String!
-  religion: Religion
+  religions: [Religion]
   alignment: String
 }
-
-type Landmark {
+type GodDomain {
   name: String
   description: String
 }
+
+
+
+type History {
+  title: String
+  body: String
+  date: String
+}
+
+type Item {
+  name: String
+} 
+
+type Landmark {
+  _id: ID
+  name: String
+  description: String
+  regions: [Region]
+}
+
 type Monster {
   _id: ID!
   name: String!
   description: String
   size: String
+  regions: [Region]
 }
+
+type Motives {
+  bonds: [String]
+  goals: [String]
+  fears: [String]
+}
+
+type OrgRelationships {
+  friends: [Organization]
+  enemies: [Organization]
+}
+
+type Organization {
+  name: String
+  motives: Motives
+  relationships: OrgRelationships
+  activeRegions: [Region]
+}
+
 type Race {
   _id: ID
   name: String
+  description: String
 }
 type Region {
   _id: ID!
   name: String
-  countries: [Country]
-  landmarks: [Landmark]
-  monsters: [Monster]
+  description: String
 }
 
-type Religion {
-  _id: ID!
-  name: String
-  gods: [God]
-}
+
 type User {
   _id: ID!
   username: String!
   password: String!
   email: String!
   worlds: [World]
+  userCreated: String
 }
+
+
 type World {
   _id: ID!
   name: String
   creator: User
   regions: [Region]
   religions: [Religion]
+  races: [Race]
+  classes: [Class]
   description: String
   characters: [Character]
+  wiki: Wiki
 }
-type Government {
-  members: [Character]
-  style: String
+
+type Wiki {
+  world: World
+  categories: [Category]
 }
+
 type Auth {
   token: ID!
   user: User
@@ -123,13 +228,11 @@ Input types
 
 
 input MonsterInput {
-  _id: ID
   name: String
   description: String
   size: String
 }
 input UserInput {
-  _id: ID
   username: String
   password: String
   email: String
@@ -137,7 +240,6 @@ input UserInput {
 }
 
 input RegionInput {
-  _id: ID
   name: String
   countries: [CountryInput]
   landmarks: [LandmarkInput]
@@ -156,7 +258,6 @@ input GodInput {
   alignment: String
 }
 input ReligionInput {
-  _id: ID
   name: String
   gods: [GodInput]
 }
@@ -167,20 +268,19 @@ input GovernmentInput {
 }
 
 input CountryInput {
-  _id: ID
   name: String
+  description: String
   government: GovernmentInput
   cities: [CityInput]
   religions: [ReligionInput]
 }
 
 input CityInput {
-  _id: ID
   name: String
+  description: String
 }
 
 input CharacterInput {
-  _id: ID
   name: String
   description: String
   size: String
@@ -193,17 +293,16 @@ input CharacterInput {
 }
 
 input ClassInput {
-  _id: ID
   name: String
+  description: String
 }
 
 input RaceInput {
-  _id: ID
   name: String
+  description: String
 }
 
 input WorldInput {
-  _id: ID
   name: String
   creator: ID
   regions: [RegionInput]
@@ -212,6 +311,8 @@ input WorldInput {
   characters: [CharacterInput]
 }
 
+
+
 type Query {
   characters: [Character]!
   cities: [City]!
@@ -219,6 +320,7 @@ type Query {
   classes: [Class]!
   countries: [Country]
   worlds: [World]
+  singleView(_id: ID!, modelName: String!): ArticleSubject
   singleCharacter(_id: ID!): Character
   singleReligion(_id: ID!): Religion
   singleGod(_id: ID!): God

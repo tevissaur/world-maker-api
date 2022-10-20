@@ -3,9 +3,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const models_1 = require("../models");
 const auth_1 = require("../utils/auth");
 const resolvers = {
+    ArticleSubject: {
+        __resolveType(obj, context, { variableValues: { modelName } }) {
+            return modelName;
+        },
+    },
     Query: {
         characters: async () => {
-            return models_1.Character.find().populate('race');
+            return models_1.Character.find().populate("race");
         },
         cities: async () => {
             return models_1.City.find();
@@ -43,12 +48,25 @@ const resolvers = {
                 return err;
             }
         },
+        singleView: async (parent, { _id, modelName }) => {
+            try {
+                switch (modelName) {
+                    case "User":
+                        return await models_1.User.findById(_id);
+                    default:
+                        break;
+                }
+            }
+            catch (error) {
+                return error;
+            }
+        },
         singleCharacter: async (parent, { _id }) => {
-            return await models_1.Character.findById(_id).populate('race');
+            return await models_1.Character.findById(_id).populate("race");
         },
         singleReligion: async (parent, { _id }) => {
             try {
-                return await models_1.Religion.findById(_id).populate('gods');
+                return await models_1.Religion.findById(_id).populate("gods");
             }
             catch (error) {
                 console.log(error);
@@ -95,17 +113,16 @@ const resolvers = {
                 return err;
             }
         },
-        updateToken: async (parents, args) => {
-        },
+        updateToken: async (parents, args) => { },
         login: async (parent, { email, password }) => {
             try {
                 const user = await models_1.User.findOne({ email });
                 if (!user) {
-                    throw new Error('No Profile with that email');
+                    throw new Error("No Profile with that email");
                 }
                 const correctPw = await user.isCorrectPassword(password);
                 if (!correctPw) {
-                    throw new Error('Incorrect password!');
+                    throw new Error("Incorrect password!");
                 }
                 const token = (0, auth_1.signToken)(user);
                 return { token, user };
@@ -193,9 +210,9 @@ const resolvers = {
             try {
                 const newRegion = await models_1.Region.create(region);
                 const updatedWorld = await models_1.World.findOneAndUpdate({ _id: worldId }, {
-                    $push: { regions: newRegion }
+                    $push: { regions: newRegion },
                 }, {
-                    new: true
+                    new: true,
                 });
                 return updatedWorld;
             }
@@ -208,43 +225,43 @@ const resolvers = {
                 const updatedRegion = await models_1.Region.findByIdAndUpdate(region._id, { $set: { ...region } }, { new: true });
                 const world = await models_1.World.findById(worldId).populate([
                     {
-                        path: 'regions',
-                        model: 'Region',
+                        path: "regions",
+                        model: "Region",
                         populate: {
-                            path: 'countries',
-                            model: 'Country',
+                            path: "countries",
+                            model: "Country",
                             populate: [
                                 {
-                                    path: 'cities',
-                                    model: 'City'
+                                    path: "cities",
+                                    model: "City",
                                 },
                                 {
-                                    path: 'religions',
-                                    model: 'Religion',
+                                    path: "religions",
+                                    model: "Religion",
                                     populate: {
-                                        path: 'gods',
-                                        model: 'God'
-                                    }
-                                }
-                            ]
-                        }
+                                        path: "gods",
+                                        model: "God",
+                                    },
+                                },
+                            ],
+                        },
                     },
                     {
-                        path: 'religions',
-                        model: 'Religion',
+                        path: "religions",
+                        model: "Religion",
                         populate: {
-                            path: 'gods',
-                            model: 'God'
-                        }
+                            path: "gods",
+                            model: "God",
+                        },
                     },
                     {
-                        path: 'characters',
-                        model: 'Character',
+                        path: "characters",
+                        model: "Character",
                         populate: {
-                            path: 'race',
-                            model: 'Race'
-                        }
-                    }
+                            path: "race",
+                            model: "Race",
+                        },
+                    },
                 ]);
                 return world;
             }
@@ -257,43 +274,43 @@ const resolvers = {
                 const deleted = await models_1.Region.findByIdAndDelete(regionId);
                 const world = await models_1.World.findById(worldId).populate([
                     {
-                        path: 'regions',
-                        model: 'Region',
+                        path: "regions",
+                        model: "Region",
                         populate: {
-                            path: 'countries',
-                            model: 'Country',
+                            path: "countries",
+                            model: "Country",
                             populate: [
                                 {
-                                    path: 'cities',
-                                    model: 'City'
+                                    path: "cities",
+                                    model: "City",
                                 },
                                 {
-                                    path: 'religions',
-                                    model: 'Religion',
+                                    path: "religions",
+                                    model: "Religion",
                                     populate: {
-                                        path: 'gods',
-                                        model: 'God'
-                                    }
-                                }
-                            ]
-                        }
+                                        path: "gods",
+                                        model: "God",
+                                    },
+                                },
+                            ],
+                        },
                     },
                     {
-                        path: 'religions',
-                        model: 'Religion',
+                        path: "religions",
+                        model: "Religion",
                         populate: {
-                            path: 'gods',
-                            model: 'God'
-                        }
+                            path: "gods",
+                            model: "God",
+                        },
                     },
                     {
-                        path: 'characters',
-                        model: 'Character',
+                        path: "characters",
+                        model: "Character",
                         populate: {
-                            path: 'race',
-                            model: 'Race'
-                        }
-                    }
+                            path: "race",
+                            model: "Race",
+                        },
+                    },
                 ]);
                 return world;
             }
@@ -305,48 +322,48 @@ const resolvers = {
             try {
                 const newReligion = await models_1.Religion.create(religion);
                 const updatedWorld = await models_1.World.findOneAndUpdate({ _id: worldId }, {
-                    $push: { religions: newReligion }
+                    $push: { religions: newReligion },
                 }, {
-                    new: true
+                    new: true,
                 }).populate([
                     {
-                        path: 'regions',
-                        model: 'Region',
+                        path: "regions",
+                        model: "Region",
                         populate: {
-                            path: 'countries',
-                            model: 'Country',
+                            path: "countries",
+                            model: "Country",
                             populate: [
                                 {
-                                    path: 'cities',
-                                    model: 'City'
+                                    path: "cities",
+                                    model: "City",
                                 },
                                 {
-                                    path: 'religions',
-                                    model: 'Religion',
+                                    path: "religions",
+                                    model: "Religion",
                                     populate: {
-                                        path: 'gods',
-                                        model: 'God'
-                                    }
-                                }
-                            ]
-                        }
+                                        path: "gods",
+                                        model: "God",
+                                    },
+                                },
+                            ],
+                        },
                     },
                     {
-                        path: 'religions',
-                        model: 'Religion',
+                        path: "religions",
+                        model: "Religion",
                         populate: {
-                            path: 'gods',
-                            model: 'God'
-                        }
+                            path: "gods",
+                            model: "God",
+                        },
                     },
                     {
-                        path: 'characters',
-                        model: 'Character',
+                        path: "characters",
+                        model: "Character",
                         populate: {
-                            path: 'race',
-                            model: 'Race'
-                        }
-                    }
+                            path: "race",
+                            model: "Race",
+                        },
+                    },
                 ]);
                 return updatedWorld;
             }
@@ -356,46 +373,48 @@ const resolvers = {
         },
         updateReligion: async (parent, { religion, worldId }) => {
             try {
-                const updatedReligion = await models_1.Religion.findByIdAndUpdate(religion._id, { $set: { ...religion } });
+                const updatedReligion = await models_1.Religion.findByIdAndUpdate(religion._id, {
+                    $set: { ...religion },
+                });
                 const world = await models_1.World.findOneAndUpdate(worldId).populate([
                     {
-                        path: 'regions',
-                        model: 'Region',
+                        path: "regions",
+                        model: "Region",
                         populate: {
-                            path: 'countries',
-                            model: 'Country',
+                            path: "countries",
+                            model: "Country",
                             populate: [
                                 {
-                                    path: 'cities',
-                                    model: 'City'
+                                    path: "cities",
+                                    model: "City",
                                 },
                                 {
-                                    path: 'religions',
-                                    model: 'Religion',
+                                    path: "religions",
+                                    model: "Religion",
                                     populate: {
-                                        path: 'gods',
-                                        model: 'God'
-                                    }
-                                }
-                            ]
-                        }
+                                        path: "gods",
+                                        model: "God",
+                                    },
+                                },
+                            ],
+                        },
                     },
                     {
-                        path: 'religions',
-                        model: 'Religion',
+                        path: "religions",
+                        model: "Religion",
                         populate: {
-                            path: 'gods',
-                            model: 'God'
-                        }
+                            path: "gods",
+                            model: "God",
+                        },
                     },
                     {
-                        path: 'characters',
-                        model: 'Character',
+                        path: "characters",
+                        model: "Character",
                         populate: {
-                            path: 'race',
-                            model: 'Race'
-                        }
-                    }
+                            path: "race",
+                            model: "Race",
+                        },
+                    },
                 ]);
                 return world;
             }
@@ -408,43 +427,43 @@ const resolvers = {
                 const deleted = await models_1.Religion.findByIdAndDelete(religionId);
                 const world = await models_1.World.findById(worldId).populate([
                     {
-                        path: 'regions',
-                        model: 'Region',
+                        path: "regions",
+                        model: "Region",
                         populate: {
-                            path: 'countries',
-                            model: 'Country',
+                            path: "countries",
+                            model: "Country",
                             populate: [
                                 {
-                                    path: 'cities',
-                                    model: 'City'
+                                    path: "cities",
+                                    model: "City",
                                 },
                                 {
-                                    path: 'religions',
-                                    model: 'Religion',
+                                    path: "religions",
+                                    model: "Religion",
                                     populate: {
-                                        path: 'gods',
-                                        model: 'God'
-                                    }
-                                }
-                            ]
-                        }
+                                        path: "gods",
+                                        model: "God",
+                                    },
+                                },
+                            ],
+                        },
                     },
                     {
-                        path: 'religions',
-                        model: 'Religion',
+                        path: "religions",
+                        model: "Religion",
                         populate: {
-                            path: 'gods',
-                            model: 'God'
-                        }
+                            path: "gods",
+                            model: "God",
+                        },
                     },
                     {
-                        path: 'characters',
-                        model: 'Character',
+                        path: "characters",
+                        model: "Character",
                         populate: {
-                            path: 'race',
-                            model: 'Race'
-                        }
-                    }
+                            path: "race",
+                            model: "Race",
+                        },
+                    },
                 ]);
                 return world;
             }
@@ -456,49 +475,49 @@ const resolvers = {
             try {
                 const newGod = await models_1.God.create(god);
                 const updatedReligion = await models_1.Religion.findByIdAndUpdate(religionId, {
-                    $push: { gods: newGod }
+                    $push: { gods: newGod },
                 }, {
-                    new: true
+                    new: true,
                 });
                 const world = await models_1.World.findById(worldId).populate([
                     {
-                        path: 'regions',
-                        model: 'Region',
+                        path: "regions",
+                        model: "Region",
                         populate: {
-                            path: 'countries',
-                            model: 'Country',
+                            path: "countries",
+                            model: "Country",
                             populate: [
                                 {
-                                    path: 'cities',
-                                    model: 'City'
+                                    path: "cities",
+                                    model: "City",
                                 },
                                 {
-                                    path: 'religions',
-                                    model: 'Religion',
+                                    path: "religions",
+                                    model: "Religion",
                                     populate: {
-                                        path: 'gods',
-                                        model: 'God'
-                                    }
-                                }
-                            ]
-                        }
+                                        path: "gods",
+                                        model: "God",
+                                    },
+                                },
+                            ],
+                        },
                     },
                     {
-                        path: 'religions',
-                        model: 'Religion',
+                        path: "religions",
+                        model: "Religion",
                         populate: {
-                            path: 'gods',
-                            model: 'God'
-                        }
+                            path: "gods",
+                            model: "God",
+                        },
                     },
                     {
-                        path: 'characters',
-                        model: 'Character',
+                        path: "characters",
+                        model: "Character",
                         populate: {
-                            path: 'race',
-                            model: 'Race'
-                        }
-                    }
+                            path: "race",
+                            model: "Race",
+                        },
+                    },
                 ]);
                 return world;
             }
@@ -508,46 +527,48 @@ const resolvers = {
         },
         updateGod: async (parent, { god, worldId }) => {
             try {
-                const updatedGod = await god.findByIdAndUpdate(god._id, { $set: { ...god } });
+                const updatedGod = await god.findByIdAndUpdate(god._id, {
+                    $set: { ...god },
+                });
                 const world = await models_1.World.findOneAndUpdate(worldId).populate([
                     {
-                        path: 'regions',
-                        model: 'Region',
+                        path: "regions",
+                        model: "Region",
                         populate: {
-                            path: 'countries',
-                            model: 'Country',
+                            path: "countries",
+                            model: "Country",
                             populate: [
                                 {
-                                    path: 'cities',
-                                    model: 'City'
+                                    path: "cities",
+                                    model: "City",
                                 },
                                 {
-                                    path: 'religions',
-                                    model: 'Religion',
+                                    path: "religions",
+                                    model: "Religion",
                                     populate: {
-                                        path: 'gods',
-                                        model: 'God'
-                                    }
-                                }
-                            ]
-                        }
+                                        path: "gods",
+                                        model: "God",
+                                    },
+                                },
+                            ],
+                        },
                     },
                     {
-                        path: 'religions',
-                        model: 'Religion',
+                        path: "religions",
+                        model: "Religion",
                         populate: {
-                            path: 'gods',
-                            model: 'God'
-                        }
+                            path: "gods",
+                            model: "God",
+                        },
                     },
                     {
-                        path: 'characters',
-                        model: 'Character',
+                        path: "characters",
+                        model: "Character",
                         populate: {
-                            path: 'race',
-                            model: 'Race'
-                        }
-                    }
+                            path: "race",
+                            model: "Race",
+                        },
+                    },
                 ]);
                 return world;
             }
@@ -560,50 +581,50 @@ const resolvers = {
                 const deleted = await models_1.God.findByIdAndDelete(godId);
                 const world = await models_1.World.findById(worldId).populate([
                     {
-                        path: 'regions',
-                        model: 'Region',
+                        path: "regions",
+                        model: "Region",
                         populate: {
-                            path: 'countries',
-                            model: 'Country',
+                            path: "countries",
+                            model: "Country",
                             populate: [
                                 {
-                                    path: 'cities',
-                                    model: 'City'
+                                    path: "cities",
+                                    model: "City",
                                 },
                                 {
-                                    path: 'religions',
-                                    model: 'Religion',
+                                    path: "religions",
+                                    model: "Religion",
                                     populate: {
-                                        path: 'gods',
-                                        model: 'God'
-                                    }
-                                }
-                            ]
-                        }
+                                        path: "gods",
+                                        model: "God",
+                                    },
+                                },
+                            ],
+                        },
                     },
                     {
-                        path: 'religions',
-                        model: 'Religion',
+                        path: "religions",
+                        model: "Religion",
                         populate: {
-                            path: 'gods',
-                            model: 'God'
-                        }
+                            path: "gods",
+                            model: "God",
+                        },
                     },
                     {
-                        path: 'characters',
-                        model: 'Character',
+                        path: "characters",
+                        model: "Character",
                         populate: {
-                            path: 'race',
-                            model: 'Race'
-                        }
-                    }
+                            path: "race",
+                            model: "Race",
+                        },
+                    },
                 ]);
                 return world;
             }
             catch (error) {
                 console.log(error);
             }
-        }
-    }
+        },
+    },
 };
 exports.default = resolvers;

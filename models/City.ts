@@ -4,6 +4,7 @@ interface ICity {
     name: string;
     notableCharacters: Array<Types.ObjectId>;
     country: Types.ObjectId;
+    description: string;
 }
 
 
@@ -18,7 +19,8 @@ const citySchema = new Schema<ICity>({
     country: {
         type: Schema.Types.ObjectId,
         ref: 'Country'
-    }
+    },
+    description: String
 })
 
 const City = model<ICity>('City', citySchema)

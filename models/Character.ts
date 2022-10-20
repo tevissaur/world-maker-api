@@ -1,8 +1,10 @@
 import { Schema, Types, model } from 'mongoose';
+import { ISubClass } from './Class';
 
 interface ICharacterClasses {
     class: Types.ObjectId;
     level: number;
+    subClass: ISubClass
 }
 
 interface ICharacter {
@@ -11,6 +13,7 @@ interface ICharacter {
     name: string;
     description: string;
     size: string;
+    alignment: string;
     race: Types.ObjectId;
     classes: Array<ICharacterClasses>;
     backstory: string;
@@ -43,6 +46,7 @@ const CharacterSchema = new Schema<ICharacter>({
         type: String,
         enum: ['Small', 'Medium', 'Large']
     },
+    alignment: String,
     race: {
         type: Schema.Types.ObjectId,
         ref: 'Race'
@@ -55,6 +59,13 @@ const CharacterSchema = new Schema<ICharacter>({
         level: {
             type: Number,
             required: true
+        },
+        subClass: {
+            name: String,
+            features: [{
+                name: String,
+                requiredLevel: Number
+            }]
         }
     }],
     backstory: {

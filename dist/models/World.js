@@ -49,5 +49,6 @@ const worldSchema = new mongoose_1.Schema({
         ref: 'Wiki'
     }
 });
+// TODO: Virtual Populate Characters
 const World = (0, mongoose_1.model)('World', worldSchema);
 exports.default = World;

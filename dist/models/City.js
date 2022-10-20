@@ -12,7 +12,8 @@ const citySchema = new mongoose_1.Schema({
     country: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: 'Country'
-    }
+    },
+    description: String
 });
 const City = (0, mongoose_1.model)('City', citySchema);
 exports.default = City;

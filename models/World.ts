@@ -61,6 +61,8 @@ const worldSchema = new Schema<IWorld>({
     }
 })
 
+// TODO: Virtual Populate Characters
+
 const World = model<IWorld>('World', worldSchema) 
 
 export default World
