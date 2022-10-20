@@ -2,7 +2,27 @@
 Types
 
 """
-union Subject = Character | City | Class | Country | God | Landmark | Monster | Race | Region | Religion | User | World
+union ArticleSubject = Character | City | Class | Country | God | Landmark | Monster | Race | Region | Religion | User | World
+
+enum ArticleSubjectModel {
+  CHARACTER
+}
+
+type Article {
+  _id: ID
+  title: String
+  subjectModel: ArticleSubjectModel
+  subject: ArticleSubject
+  body: String
+  category: Category
+}
+
+type Category {
+  _id: ID
+  name: String
+  parentCategory: Category
+  subCategories: [Category]
+}
 
 type Character {
   _id: ID
@@ -15,6 +35,7 @@ type Character {
   bonds: [String]
   goals: [String]
   fears: [String]
+  residentCity: City
 }
 type City {
   _id: ID

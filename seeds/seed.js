@@ -1,89 +1,89 @@
 
 const db = require('../dist/config/connection')
 const { Character, City, Country, Class, God, Monster, Organization, Race, Region, Religion, User, World } = require('../dist/models')
-const { Schema, Types } = require('mongoose')
+const { Types: { ObjectId } } = require('mongoose')
 
 let characterIds = [
-    Types.ObjectId(),
-    Types.ObjectId(),
-    Types.ObjectId(),
+    ObjectId(),
+    ObjectId(),
+    ObjectId(),
 ]
 
 let classIds = [
-    Types.ObjectId(),
-    Types.ObjectId(),
-    Types.ObjectId(),
-    Types.ObjectId(),
+    ObjectId(),
+    ObjectId(),
+    ObjectId(),
+    ObjectId(),
 ]
 
 let orgIds = [
-    Types.ObjectId(),
-    Types.ObjectId(),
-    Types.ObjectId(),
-    Types.ObjectId(),
+    ObjectId(),
+    ObjectId(),
+    ObjectId(),
+    ObjectId(),
 ]
 
 let monsterIds = [
-    Types.ObjectId(),
-    Types.ObjectId(),
-    Types.ObjectId(),
-    Types.ObjectId(),
+    ObjectId(),
+    ObjectId(),
+    ObjectId(),
+    ObjectId(),
 ]
 
 let cityIds = [
-    Types.ObjectId(),
-    Types.ObjectId(),
-    Types.ObjectId(),
-    Types.ObjectId(),
+    ObjectId(),
+    ObjectId(),
+    ObjectId(),
+    ObjectId(),
 ]
 
 let countryIds = [
-    Types.ObjectId(),
-    Types.ObjectId(),
-    Types.ObjectId(),
+    ObjectId(),
+    ObjectId(),
+    ObjectId(),
 ]
 
 let godIds = [
-    Types.ObjectId(),
-    Types.ObjectId(),
-    Types.ObjectId(),
-    Types.ObjectId(),
-    Types.ObjectId(),
-    Types.ObjectId(),
-    Types.ObjectId(),
-    Types.ObjectId(),
+    ObjectId(),
+    ObjectId(),
+    ObjectId(),
+    ObjectId(),
+    ObjectId(),
+    ObjectId(),
+    ObjectId(),
+    ObjectId(),
 ]
 
 let raceIds = [
-    Types.ObjectId(),
-    Types.ObjectId(),
-    Types.ObjectId(),
-    Types.ObjectId(),
+    ObjectId(),
+    ObjectId(),
+    ObjectId(),
+    ObjectId(),
 ]
 
 let religionIds = [
-    Types.ObjectId(),
-    Types.ObjectId(),
-    Types.ObjectId(),
+    ObjectId(),
+    ObjectId(),
+    ObjectId(),
 ]
 
 let userIds = [
-    Types.ObjectId(),
-    Types.ObjectId(),
-    Types.ObjectId(),
+    ObjectId(),
+    ObjectId(),
+    ObjectId(),
 ]
 
 let worldIds = [
-    Types.ObjectId(),
-    Types.ObjectId(),
-    Types.ObjectId(),
+    ObjectId(),
+    ObjectId(),
+    ObjectId(),
 ]
 
 let regionIds = [
-    Types.ObjectId(),
-    Types.ObjectId(),
-    Types.ObjectId(),
-    Types.ObjectId(),
+    ObjectId(),
+    ObjectId(),
+    ObjectId(),
+    ObjectId(),
 ]
 
 const monsterData = [

@@ -26,7 +26,7 @@ async function startApolloServer() {
         app.use(express_1.default.static(path_1.default.join(__dirname, "../client/build")));
     }
     app.get("/", (req, res) => {
-        res.sendFile(path_1.default.join(__dirname, "../client/public/index.html"));
+        res.sendFile(path_1.default.join(__dirname, "../index.html"));
     });
     // app.use('/', routes)
     connection_1.default.on("error", (error) => console.log("DB Error", error));
