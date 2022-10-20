@@ -10,6 +10,8 @@ import {
   God,
   Monster,
   Region,
+  History,
+  Organization
 } from "../models";
 
 import { signToken } from "../utils/auth";
@@ -61,10 +63,34 @@ const resolvers = {
     singleView: async (parent, { _id, modelName }) => {
       try {
         switch (modelName) {
-            case "User":
-                return await User.findById(_id);
-            default:
-                break;
+          case "User":
+            return await User.findById(_id);
+          case "Character":
+            return await Character.findById(_id);
+          case "Religion":
+            return await Religion.findById(_id);
+          case "Region":
+            return await Region.findById(_id);
+          case "City":
+            return await City.findById(_id);
+          case "Country":
+            return await Country.findById(_id);
+          case "World":
+            return await World.findById(_id);
+          case "Monster":
+            return await Monster.findById(_id);
+          case "God":
+            return await God.findById(_id);
+          case "Class":
+            return await Class.findById(_id);
+          case "History":
+            return await History.findById(_id);
+          case "Race":
+            return await Race.findById(_id);
+          case "Organization":
+            return await Organization.findById(_id);
+          default:
+            break;
         }
       } catch (error) {
         return error;
@@ -77,7 +103,6 @@ const resolvers = {
       try {
         return await Religion.findById(_id).populate("gods");
       } catch (error) {
-        console.log(error);
         return error;
       }
     },
@@ -85,7 +110,6 @@ const resolvers = {
       try {
         return await God.findById(_id);
       } catch (error) {
-        console.log(error);
         return error;
       }
     },
