@@ -320,12 +320,8 @@ type Query {
   classes: [Class]!
   countries: [Country]
   worlds: [World]
-  singleView(_id: ID!, modelName: String!): ArticleSubject
-  singleCharacter(_id: ID!): Character
-  singleReligion(_id: ID!): Religion
-  singleGod(_id: ID!): God
-  singleRegion(_id: ID!): Region
-  singleMonster(_id: ID!): Monster
+  getSingleSubject(_id: ID!, modelName: String!): ArticleSubject
+  getAllOfOneSubject(modelName: String!): [ArticleSubject]
   me(_id: ID!): User
   userWorlds(creator: ID!): [World]
   world(name: String!): World

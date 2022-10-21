@@ -23,72 +23,48 @@ const resolvers = {
     },
   },
   Query: {
-    characters: async () => {
-      return Character.find().populate("race");
-    },
-    cities: async () => {
-      return City.find();
-    },
-    races: async () => {
-      return Race.find();
-    },
-    countries: async () => {
-      return Country.find();
-    },
-    classes: async () => {
-      return Class.find();
-    },
-    me: async (parent, { _id }) => {
-      return User.findById(_id);
-    },
-    worlds: async () => {
-      return World.find();
-    },
-    userWorlds: async (parent, { creator }) => {
-      try {
-        const worlds = await World.find({ creator });
-        return worlds;
-      } catch (err) {
-        console.log(err);
-        return err;
-      }
-    },
-    world: async (parent, { name }) => {
-      try {
-        return await World.findOne({ name });
-      } catch (err) {
-        return err;
-      }
-    },
-    singleView: async (parent, { _id, modelName }) => {
+    getSingleSubject: async (parent, { _id, modelName }) => {
       try {
         switch (modelName) {
           case "User":
             return await User.findById(_id);
+
           case "Character":
             return await Character.findById(_id);
+
           case "Religion":
             return await Religion.findById(_id);
+
           case "Region":
             return await Region.findById(_id);
+
           case "City":
             return await City.findById(_id);
+
           case "Country":
             return await Country.findById(_id);
+
           case "World":
             return await World.findById(_id);
+
           case "Monster":
             return await Monster.findById(_id);
+
           case "God":
             return await God.findById(_id);
+
           case "Class":
             return await Class.findById(_id);
+
           case "History":
             return await History.findById(_id);
+
           case "Race":
             return await Race.findById(_id);
+
           case "Organization":
             return await Organization.findById(_id);
+            
           default:
             break;
         }
@@ -96,39 +72,55 @@ const resolvers = {
         return error;
       }
     },
-    singleCharacter: async (parent, { _id }) => {
-      return await Character.findById(_id).populate("race");
-    },
-    singleReligion: async (parent, { _id }) => {
-      try {
-        return await Religion.findById(_id).populate("gods");
-      } catch (error) {
-        return error;
+    getAllOfOneSubject: async (parent, { modelName }) => {
+        try {
+          switch (modelName) {
+            case "User":
+              return await User.find();
+  
+            case "Character":
+              return await Character.find();
+  
+            case "Religion":
+              return await Religion.find();
+  
+            case "Region":
+              return await Region.find();
+  
+            case "City":
+              return await City.find();
+  
+            case "Country":
+              return await Country.find();
+  
+            case "World":
+              return await World.find();
+  
+            case "Monster":
+              return await Monster.find();
+  
+            case "God":
+              return await God.find();
+  
+            case "Class":
+              return await Class.find();
+  
+            case "History":
+              return await History.find();
+  
+            case "Race":
+              return await Race.find();
+  
+            case "Organization":
+              return await Organization.find();
+              
+            default:
+              break;
+          }
+        } catch (error) {
+          return error;
+        }
       }
-    },
-    singleGod: async (parent, { _id }) => {
-      try {
-        return await God.findById(_id);
-      } catch (error) {
-        return error;
-      }
-    },
-    singleMonster: async (parent, { _id }) => {
-      try {
-        return await Monster.findById(_id);
-      } catch (error) {
-        console.log(error);
-        return error;
-      }
-    },
-    singleRegion: async (parent, { _id }) => {
-      try {
-        return await Region.findById(_id);
-      } catch (error) {
-        console.log(error);
-        return error;
-      }
-    },
   },
   Mutation: {
     createUser: async (parent, args) => {
