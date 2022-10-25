@@ -26,6 +26,7 @@ const {
 let characterIds = [new ObjectId(), new ObjectId(), new ObjectId()];
 
 let classIds = [new ObjectId(), new ObjectId(), new ObjectId(), new ObjectId()];
+let historyIds = [new ObjectId(), new ObjectId(), new ObjectId(), new ObjectId()];
 
 let orgIds = [new ObjectId(), new ObjectId(), new ObjectId(), new ObjectId()];
 
@@ -84,6 +85,8 @@ let godDomainIds = [
   new ObjectId(),
   new ObjectId(),
 ];
+
+
 const monsterData = [
   {
     _id: monsterIds[0],
@@ -418,6 +421,7 @@ const worldData = [
 ];
 const classData = [
   {
+    _id: classIds[0],
     name: "Barbarian",
     description: "Raging fighting machines.",
     features: {
@@ -428,6 +432,7 @@ const classData = [
 ];
 const historyData = [
   {
+    _id: historyIds[0],
     title: "Rise of the Hearth",
     body: "Story of the rising power in the Northern Eleronian territories.",
     date: "19990909",
@@ -435,6 +440,7 @@ const historyData = [
 ];
 const orgData: Array<IOrganization> = [
   {
+    _id: orgIds[0],
     name: "The Shadow",
     motives: {
       bonds: [""],
@@ -461,7 +467,12 @@ db.once("open", async () => {
   await Character.deleteMany({});
   await City.deleteMany({});
   await Country.deleteMany({});
+  await Class.deleteMany({});
   await God.deleteMany({});
+  await GodDomain.deleteMany({});
+  await History.deleteMany({});
+  await Monster.deleteMany({});
+  await Organization.deleteMany({});
   await Race.deleteMany({});
   await Region.deleteMany({});
   await Religion.deleteMany({});
@@ -484,6 +495,8 @@ db.once("open", async () => {
   console.log("GodDomain seeded!");
   await History.insertMany(historyData);
   console.log("History seeded!");
+  await Landmark.insertMany(landmarkData);
+  console.log("Landmarks seeded!");
   await Monster.insertMany(monsterData);
   console.log("Monster seeded!");
   await Organization.insertMany(orgData);
