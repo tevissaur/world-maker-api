@@ -1,6 +1,7 @@
 import { Schema, model, Types } from "mongoose";
 
-interface IOrganization {
+export interface IOrganization {
+    _id?: Types.ObjectId;
     name: string;
     motives: {
         bonds: Array<string>;

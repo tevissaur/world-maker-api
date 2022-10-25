@@ -1,10 +1,10 @@
 import { Schema, model } from "mongoose";
 
-interface IClass {
+export interface IClass {
     name: string;
     description: string;
     features: Array<IClassFeature>
-    subClasses: Array<ISubClass>;
+    subClasses?: Array<ISubClass>;
 }
 
 export interface ISubClass {

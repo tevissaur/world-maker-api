@@ -14,8 +14,11 @@ import {
   Religion,
   User,
   World,
+  GodDomain,
 } from "../models";
 import mongoose from "mongoose";
+import { IClass } from "../models/Class";
+import { IOrganization } from "../models/Organization";
 const {
   Types: { ObjectId },
 } = mongoose;
@@ -64,6 +67,18 @@ let regionIds = [
 ];
 
 let landmarkIds = [
+  new ObjectId(),
+  new ObjectId(),
+  new ObjectId(),
+  new ObjectId(),
+];
+let godDomainIds = [
+  new ObjectId(),
+  new ObjectId(),
+  new ObjectId(),
+  new ObjectId(),
+  new ObjectId(),
+  new ObjectId(),
   new ObjectId(),
   new ObjectId(),
   new ObjectId(),
@@ -133,18 +148,26 @@ const cityData = [
   {
     _id: cityIds[0],
     name: "Hearth of the Bay",
+    description:
+      "The shining gem of a city is nestled in the most northern part of the Bay of Pigs",
   },
   {
     _id: cityIds[1],
     name: "Bastow",
+    description:
+      "The shining gem of a city is nestled in the most northern part of the Bay of Pigs",
   },
   {
     _id: cityIds[2],
     name: "Storm's End",
+    description:
+      "The shining gem of a city is nestled in the most northern part of the Bay of Pigs",
   },
   {
     _id: cityIds[3],
     name: "Ravenstone",
+    description:
+      "The shining gem of a city is nestled in the most northern part of the Bay of Pigs",
   },
 ];
 
@@ -177,7 +200,58 @@ const countryData = [
     cities: [cityIds[1]],
   },
 ];
-
+const godDomainData = [
+  {
+    _id: godDomainIds[0],
+    name: "Ambition",
+    description: "Those that reside in this domain achieve greatness.",
+  },
+  {
+    _id: godDomainIds[1],
+    name: "Strength",
+    description: "Those that reside in this domain achieve greatness.",
+  },
+  {
+    _id: godDomainIds[2],
+    name: "Forge",
+    description: "Those that reside in this domain achieve greatness.",
+  },
+  {
+    _id: godDomainIds[3],
+    name: "City",
+    description: "Those that reside in this domain achieve greatness.",
+  },
+  {
+    _id: godDomainIds[4],
+    name: "Knowledge",
+    description: "Those that reside in this domain achieve greatness.",
+  },
+  {
+    _id: godDomainIds[5],
+    name: "Light",
+    description: "Those that reside in this domain achieve greatness.",
+  },
+  {
+    _id: godDomainIds[6],
+    name: "Trickery",
+    description: "Those that reside in this domain achieve greatness.",
+  },
+  {
+    _id: godDomainIds[7],
+    name: "Grave",
+    description: "Those that reside in this domain achieve greatness.",
+  },
+  {
+    _id: godDomainIds[8],
+    name: "Druidic",
+    description: "Those that reside in this domain achieve greatness.",
+  },
+  {
+    _id: godDomainIds[9],
+    name: "War",
+    description: "Those that reside in this domain achieve greatness.",
+  },
+];
 const godsData = [
   {
     _id: godIds[0],
@@ -342,6 +416,38 @@ const worldData = [
     characters: [characterIds[0], characterIds[1], characterIds[2]],
   },
 ];
+const classData = [
+  {
+    name: "Barbarian",
+    description: "Raging fighting machines.",
+    features: {
+      name: "Rage",
+      requiredLevel: 2,
+    },
+  },
+];
+const historyData = [
+  {
+    title: "Rise of the Hearth",
+    body: "Story of the rising power in the Northern Eleronian territories.",
+    date: "19990909",
+  },
+];
+const orgData: Array<IOrganization> = [
+  {
+    name: "The Shadow",
+    motives: {
+      bonds: [""],
+      goals: [""],
+      fears: [""],
+    },
+    relationships: {
+      friends: [],
+      enemies: [],
+    },
+    activeRegions: [],
+  },
+];
 
 const userData = {
   _id: userIds[0],
@@ -362,21 +468,37 @@ db.once("open", async () => {
   await User.deleteMany({});
   await World.deleteMany({});
 
-  await Character.insertMany(characterData);
-  await City.insertMany(cityData);
-  await Country.insertMany(countryData);
-  await Class.insertMany(classData);
-  await God.insertMany(godsData);
-  await History.insertMany(historyData);
-  await Monster.insertMany(monsterData);
-  await Organization.insertMany(orgData);
-  await Race.insertMany(raceData);
-  await Region.insertMany(regionData);
-  await Religion.insertMany(religionData);
-  await User.create(userData);
-  await User.insertMany(userData);
-  await World.insertMany(worldData);
+  console.log("Database emptied.");
 
-  console.log("all done!");
+  await Character.insertMany(characterData);
+  console.log("Character seeded!");
+  await City.insertMany(cityData);
+  console.log("City seeded!");
+  await Country.insertMany(countryData);
+  console.log("Country seeded!");
+  await Class.insertMany(classData);
+  console.log("Class seeded!");
+  await God.insertMany(godsData);
+  console.log("Gods seeded!");
+  await GodDomain.insertMany(godDomainData);
+  console.log("GodDomain seeded!");
+  await History.insertMany(historyData);
+  console.log("History seeded!");
+  await Monster.insertMany(monsterData);
+  console.log("Monster seeded!");
+  await Organization.insertMany(orgData);
+  console.log("Organization seeded!");
+  await Race.insertMany(raceData);
+  console.log("Race seeded!");
+  await Region.insertMany(regionData);
+  console.log("Region seeded!");
+  await Religion.insertMany(religionData);
+  console.log("Religion seeded!");
+  await User.create(userData);
+  console.log("User seeded!");
+  await World.insertMany(worldData);
+  console.log("World seeded!");
+
+  console.log("All done!");
   process.exit(0);
 });
