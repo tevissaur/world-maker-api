@@ -18,3 +18,4 @@ const CalendarSchema = new mongoose_1.Schema({
 });
 const Calendar = (0, mongoose_1.model)('Calendar', CalendarSchema);
 exports.default = Calendar;
+//# sourceMappingURL=Calendar.js.map

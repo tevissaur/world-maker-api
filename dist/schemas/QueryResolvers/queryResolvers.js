@@ -1,36 +1,45 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const models_1 = require("../../models");
 const Query = {
-    getSingleSubject: async (parent, { _id, modelName }) => {
+    getSingleSubject: (parent, { _id, modelName }) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             switch (modelName) {
-                case "User":
-                    return await models_1.User.findById(_id);
-                case "Character":
-                    return await models_1.Character.findById(_id);
-                case "Religion":
-                    return await models_1.Religion.findById(_id);
-                case "Region":
-                    return await models_1.Region.findById(_id);
-                case "City":
-                    return await models_1.City.findById(_id);
-                case "Country":
-                    return await models_1.Country.findById(_id);
-                case "World":
-                    return await models_1.World.findById(_id);
-                case "Monster":
-                    return await models_1.Monster.findById(_id);
-                case "God":
-                    return await models_1.God.findById(_id);
-                case "Class":
-                    return await models_1.Class.findById(_id);
-                case "History":
-                    return await models_1.History.findById(_id);
-                case "Race":
-                    return await models_1.Race.findById(_id);
-                case "Organization":
-                    return await models_1.Organization.findById(_id);
+                case models_1.User.modelName:
+                    return yield models_1.User.findById(_id);
+                case models_1.Character.modelName:
+                    return yield models_1.Character.findById(_id);
+                case models_1.Religion.modelName:
+                    return yield models_1.Religion.findById(_id);
+                case models_1.Region.modelName:
+                    return yield models_1.Region.findById(_id);
+                case models_1.City.modelName:
+                    return yield models_1.City.findById(_id);
+                case models_1.Country.modelName:
+                    return yield models_1.Country.findById(_id);
+                case models_1.World.modelName:
+                    return yield models_1.World.findById(_id);
+                case models_1.Monster.modelName:
+                    return yield models_1.Monster.findById(_id);
+                case models_1.God.modelName:
+                    return yield models_1.God.findById(_id);
+                case models_1.Class.modelName:
+                    return yield models_1.Class.findById(_id);
+                case models_1.History.modelName:
+                    return yield models_1.History.findById(_id);
+                case models_1.Race.modelName:
+                    return yield models_1.Race.findById(_id);
+                case models_1.Organization.modelName:
+                    return yield models_1.Organization.findById(_id);
                 default:
                     break;
             }
@@ -38,37 +47,37 @@ const Query = {
         catch (error) {
             return error;
         }
-    },
-    getAllOfOneSubject: async (parent, { modelName }) => {
+    }),
+    getAllOfOneSubject: (parent, { modelName }) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             console.log(modelName);
             switch (modelName) {
                 case "User":
-                    return await models_1.User.find();
+                    return yield models_1.User.find();
                 case "Character":
-                    return await models_1.Character.find();
+                    return yield models_1.Character.find();
                 case "Religion":
-                    return await models_1.Religion.find();
+                    return yield models_1.Religion.find();
                 case "Region":
-                    return await models_1.Region.find();
+                    return yield models_1.Region.find();
                 case "City":
-                    return await models_1.City.find();
+                    return yield models_1.City.find();
                 case "Country":
-                    return await models_1.Country.find();
+                    return yield models_1.Country.find();
                 case "World":
-                    return await models_1.World.find();
+                    return yield models_1.World.find();
                 case "Monster":
-                    return await models_1.Monster.find();
+                    return yield models_1.Monster.find();
                 case "God":
-                    return await models_1.God.find();
+                    return yield models_1.God.find();
                 case "Class":
-                    return await models_1.Class.find();
+                    return yield models_1.Class.find();
                 case "History":
-                    return await models_1.History.find();
+                    return yield models_1.History.find();
                 case "Race":
-                    return await models_1.Race.find();
+                    return yield models_1.Race.find();
                 case "Organization":
-                    return await models_1.Organization.find();
+                    return yield models_1.Organization.find();
                 default:
                     break;
             }
@@ -76,6 +85,7 @@ const Query = {
         catch (error) {
             return error;
         }
-    },
+    }),
 };
 exports.default = Query;
+//# sourceMappingURL=queryResolvers.js.map

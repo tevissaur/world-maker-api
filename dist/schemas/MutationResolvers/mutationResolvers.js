@@ -1,27 +1,35 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const models_1 = require("../../models");
 const auth_1 = require("../../utils/auth");
 const Mutation = {
-    createUser: async (parent, args) => {
+    createUser: (parent, args) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const user = await models_1.User.create(args);
+            const user = yield models_1.User.create(args);
             const token = (0, auth_1.signToken)(user);
             return { user, token };
         }
         catch (err) {
-            console.log(err);
+            return (err);
             return err;
         }
-    },
-    updateToken: async (parents, args) => { },
-    login: async (parent, { email, password }) => {
+    }),
+    login: (parent, { email, password }) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const user = await models_1.User.findOne({ email });
+            const user = yield models_1.User.findOne({ email });
             if (!user) {
                 throw new Error("No Profile with that email");
             }
-            const correctPw = await user.isCorrectPassword(password);
+            const correctPw = yield user.schema.methods.isCorrectPassword(password);
             if (!correctPw) {
                 throw new Error("Incorrect password!");
             }
@@ -29,105 +37,151 @@ const Mutation = {
             return { token, user };
         }
         catch (err) {
-            console.log(err);
+            return (err);
         }
-    },
-    createWorld: async (parent, { world }) => {
+    }),
+    createWorld: (parent, { world }) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const newWorld = await models_1.World.create(world);
-            console.log(newWorld);
-            console.log(models_1.User.collection.collectionName);
-            return newWorld;
+            return yield models_1.World.create(world);
         }
         catch (err) {
             return err;
         }
-    },
+    }),
     // TODO: Optimize this shit
-    updateWorld: async (parent, { world }) => {
+    updateWorld: (parent, { world }) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            return await models_1.World.findByIdAndUpdate(world._id, { $set: { ...world } }, { new: true });
+            return yield models_1.World.findByIdAndUpdate(world._id, { $set: Object.assign({}, world) }, { new: true });
         }
         catch (err) {
             return err;
         }
-    },
-    deleteWorld: async (parent, { worldId }) => {
+    }),
+    deleteWorld: (parent, { worldId }) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            await models_1.World.findByIdAndDelete(worldId);
+            yield models_1.World.findByIdAndDelete(worldId);
             return worldId;
         }
         catch (err) {
             return err;
         }
-    },
-    createCharacter: async (parent, { character }) => {
+    }),
+    createCharacter: (parent, { character }) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            return await models_1.Character.create(character);
+            return yield models_1.Character.create(character);
         }
         catch (error) {
-            console.log(error);
+            return (error);
         }
-    },
-    updateCharacter: async (parent, { character, worldId }) => {
+    }),
+    updateCharacter: (parent, { character, worldId }) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            return await models_1.Character.findByIdAndUpdate(character._id, { $set: { ...character } }, { new: true });
+            return yield models_1.Character.findByIdAndUpdate(character._id, { $set: Object.assign({}, character) }, { new: true });
         }
         catch (error) {
             return error;
         }
-    },
-    deleteCharacter: async (parent, { characterId, worldId }) => {
+    }),
+    deleteCharacter: (parent, { characterId, worldId }) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            await models_1.Character.findByIdAndDelete(characterId);
+            yield models_1.Character.findByIdAndDelete(characterId);
             return characterId;
         }
         catch (error) {
             return error;
         }
-    },
-    createMonster: async (parent, { monster }) => {
+    }),
+    createMonster: (parent, { monster }) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            return await models_1.Monster.create(monster);
+            return yield models_1.Monster.create(monster);
         }
         catch (error) {
             return error;
         }
-    },
-    updateMonster: async (parent, { monster, worldId, regionId }) => {
+    }),
+    updateMonster: (parent, { monster, worldId, regionId }) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            return await models_1.Monster.findById(monster._id, { $set: { ...monster } }, { new: true });
+            return yield models_1.Monster.findById(monster._id, { $set: Object.assign({}, monster) }, { new: true });
         }
         catch (error) {
             return error;
         }
-    },
-    deleteMonster: async (parent, { monsterId, worldId, regionId }) => {
+    }),
+    deleteMonster: (parent, { monsterId, worldId }) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            return await models_1.Monster.findByIdAndDelete(monsterId);
+            return yield models_1.Monster.findByIdAndDelete(monsterId);
         }
         catch (error) {
             return error;
         }
-    },
-    createRegion: async (parent, { region, worldId }) => {
+    }),
+    createRegion: (parent, { region, worldId }) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const newRegion = await models_1.Region.create(region);
-            const updatedWorld = await models_1.World.findOneAndUpdate({ _id: worldId }, {
+            const newRegion = yield models_1.Region.create(region);
+            const updatedWorld = yield models_1.World.findOneAndUpdate({ _id: worldId }, {
                 $push: { regions: newRegion },
             }, {
                 new: true,
             });
-            return updatedWorld;
+            return newRegion;
         }
         catch (error) {
-            console.log(error);
+            return error;
         }
-    },
-    updateRegion: async (parent, { region, worldId }) => {
+    }),
+    updateRegion: (parent, { region, worldId }) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const updatedRegion = await models_1.Region.findByIdAndUpdate(region._id, { $set: { ...region } }, { new: true });
-            const world = await models_1.World.findById(worldId).populate([
+            const updatedRegion = yield models_1.Region.findByIdAndUpdate(region._id, { $set: Object.assign({}, region) }, { new: true });
+            const world = yield models_1.World.findById(worldId).populate([
+                {
+                    path: "regions",
+                    model: "Region",
+                    populate: {
+                        path: "countries",
+                        model: "Country",
+                        populate: [
+                            {
+                                path: "cities",
+                                model: "City",
+                            },
+                            {
+                                path: "religions",
+                                model: "Religion",
+                                populate: {
+                                    path: "gods",
+                                    model: "God",
+                                },
+                            },
+                        ],
+                    },
+                },
+                {
+                    path: "religions",
+                    model: "Religion",
+                    populate: {
+                        path: "gods",
+                        model: "God",
+                    },
+                },
+                {
+                    path: "characters",
+                    model: "Character",
+                    populate: {
+                        path: "race",
+                        model: "Race",
+                    },
+                },
+            ]);
+            return updatedRegion;
+        }
+        catch (error) {
+            return error;
+        }
+    }),
+    deleteRegion: (parent, { regionId, worldId }) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const deleted = yield models_1.Region.findByIdAndDelete(regionId);
+            const world = yield models_1.World.findById(worldId).populate([
                 {
                     path: "regions",
                     model: "Region",
@@ -170,62 +224,13 @@ const Mutation = {
             return world;
         }
         catch (error) {
-            console.log(error);
+            return error;
         }
-    },
-    deleteRegion: async (parent, { regionId, worldId }) => {
+    }),
+    createReligion: (parent, { religion, worldId }) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const deleted = await models_1.Region.findByIdAndDelete(regionId);
-            const world = await models_1.World.findById(worldId).populate([
-                {
-                    path: "regions",
-                    model: "Region",
-                    populate: {
-                        path: "countries",
-                        model: "Country",
-                        populate: [
-                            {
-                                path: "cities",
-                                model: "City",
-                            },
-                            {
-                                path: "religions",
-                                model: "Religion",
-                                populate: {
-                                    path: "gods",
-                                    model: "God",
-                                },
-                            },
-                        ],
-                    },
-                },
-                {
-                    path: "religions",
-                    model: "Religion",
-                    populate: {
-                        path: "gods",
-                        model: "God",
-                    },
-                },
-                {
-                    path: "characters",
-                    model: "Character",
-                    populate: {
-                        path: "race",
-                        model: "Race",
-                    },
-                },
-            ]);
-            return world;
-        }
-        catch (error) {
-            console.log(error);
-        }
-    },
-    createReligion: async (parent, { religion, worldId }) => {
-        try {
-            const newReligion = await models_1.Religion.create(religion);
-            const updatedWorld = await models_1.World.findOneAndUpdate({ _id: worldId }, {
+            const newReligion = yield models_1.Religion.create(religion);
+            const updatedWorld = yield models_1.World.findOneAndUpdate({ _id: worldId }, {
                 $push: { religions: newReligion },
             }, {
                 new: true,
@@ -269,18 +274,26 @@ const Mutation = {
                     },
                 },
             ]);
-            return updatedWorld;
+            return newReligion;
         }
         catch (error) {
-            console.log(error);
+            return error;
         }
-    },
-    updateReligion: async (parent, { religion, worldId }) => {
+    }),
+    updateReligion: (parent, { religion, worldId }) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const updatedReligion = await models_1.Religion.findByIdAndUpdate(religion._id, {
-                $set: { ...religion },
+            return yield models_1.Religion.findByIdAndUpdate(religion._id, {
+                $set: Object.assign({}, religion),
             });
-            const world = await models_1.World.findOneAndUpdate(worldId).populate([
+        }
+        catch (error) {
+            return (error);
+        }
+    }),
+    deleteReligion: (parent, { religionId, worldId }) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const deleted = yield models_1.Religion.findByIdAndDelete(religionId);
+            const world = yield models_1.World.findById(worldId).populate([
                 {
                     path: "regions",
                     model: "Region",
@@ -323,67 +336,18 @@ const Mutation = {
             return world;
         }
         catch (error) {
-            console.log(error);
+            return (error);
         }
-    },
-    deleteReligion: async (parent, { religionId, worldId }) => {
+    }),
+    createGod: (parent, { god, worldId, religionId }) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const deleted = await models_1.Religion.findByIdAndDelete(religionId);
-            const world = await models_1.World.findById(worldId).populate([
-                {
-                    path: "regions",
-                    model: "Region",
-                    populate: {
-                        path: "countries",
-                        model: "Country",
-                        populate: [
-                            {
-                                path: "cities",
-                                model: "City",
-                            },
-                            {
-                                path: "religions",
-                                model: "Religion",
-                                populate: {
-                                    path: "gods",
-                                    model: "God",
-                                },
-                            },
-                        ],
-                    },
-                },
-                {
-                    path: "religions",
-                    model: "Religion",
-                    populate: {
-                        path: "gods",
-                        model: "God",
-                    },
-                },
-                {
-                    path: "characters",
-                    model: "Character",
-                    populate: {
-                        path: "race",
-                        model: "Race",
-                    },
-                },
-            ]);
-            return world;
-        }
-        catch (error) {
-            console.log(error);
-        }
-    },
-    createGod: async (parent, { god, worldId, religionId }) => {
-        try {
-            const newGod = await models_1.God.create(god);
-            const updatedReligion = await models_1.Religion.findByIdAndUpdate(religionId, {
+            const newGod = yield models_1.God.create(god);
+            const updatedReligion = yield models_1.Religion.findByIdAndUpdate(religionId, {
                 $push: { gods: newGod },
             }, {
                 new: true,
             });
-            const world = await models_1.World.findById(worldId).populate([
+            const world = yield models_1.World.findById(worldId).populate([
                 {
                     path: "regions",
                     model: "Region",
@@ -426,108 +390,27 @@ const Mutation = {
             return world;
         }
         catch (error) {
-            console.log(error);
+            return (error);
         }
-    },
-    updateGod: async (parent, { god, worldId }) => {
+    }),
+    updateGod: (parent, { god, worldId }) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const updatedGod = await god.findByIdAndUpdate(god._id, {
-                $set: { ...god },
+            return yield models_1.God.findByIdAndUpdate(god._id, {
+                $set: Object.assign({}, god),
             });
-            const world = await models_1.World.findOneAndUpdate(worldId).populate([
-                {
-                    path: "regions",
-                    model: "Region",
-                    populate: {
-                        path: "countries",
-                        model: "Country",
-                        populate: [
-                            {
-                                path: "cities",
-                                model: "City",
-                            },
-                            {
-                                path: "religions",
-                                model: "Religion",
-                                populate: {
-                                    path: "gods",
-                                    model: "God",
-                                },
-                            },
-                        ],
-                    },
-                },
-                {
-                    path: "religions",
-                    model: "Religion",
-                    populate: {
-                        path: "gods",
-                        model: "God",
-                    },
-                },
-                {
-                    path: "characters",
-                    model: "Character",
-                    populate: {
-                        path: "race",
-                        model: "Race",
-                    },
-                },
-            ]);
-            return world;
         }
         catch (error) {
-            console.log(error);
+            return (error);
         }
-    },
-    deleteGod: async (parent, { godId, worldId }) => {
+    }),
+    deleteGod: (parent, { godId, worldId }) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const deleted = await models_1.God.findByIdAndDelete(godId);
-            const world = await models_1.World.findById(worldId).populate([
-                {
-                    path: "regions",
-                    model: "Region",
-                    populate: {
-                        path: "countries",
-                        model: "Country",
-                        populate: [
-                            {
-                                path: "cities",
-                                model: "City",
-                            },
-                            {
-                                path: "religions",
-                                model: "Religion",
-                                populate: {
-                                    path: "gods",
-                                    model: "God",
-                                },
-                            },
-                        ],
-                    },
-                },
-                {
-                    path: "religions",
-                    model: "Religion",
-                    populate: {
-                        path: "gods",
-                        model: "God",
-                    },
-                },
-                {
-                    path: "characters",
-                    model: "Character",
-                    populate: {
-                        path: "race",
-                        model: "Race",
-                    },
-                },
-            ]);
-            return world;
+            return yield models_1.God.findByIdAndDelete(godId);
         }
         catch (error) {
-            console.log(error);
+            return (error);
         }
-    },
+    }),
 };
 exports.default = Mutation;
+//# sourceMappingURL=mutationResolvers.js.map

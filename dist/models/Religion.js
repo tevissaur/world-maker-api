@@ -13,3 +13,4 @@ const ReligionSchema = new mongoose_1.Schema({
 });
 const Religion = (0, mongoose_1.model)('Religion', ReligionSchema);
 exports.default = Religion;
+//# sourceMappingURL=Religion.js.map

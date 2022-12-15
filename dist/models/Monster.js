@@ -22,3 +22,4 @@ const monsterSchema = new mongoose_1.Schema({
 });
 const Monster = (0, mongoose_1.model)('Monster', monsterSchema);
 exports.default = Monster;
+//# sourceMappingURL=Monster.js.map

@@ -8,9 +8,9 @@ type Domain = {
 interface IGod {
     name: string;
     description: string;
-    domains: Array<Types.ObjectId>;
+    domains: Types.ObjectId[];
     symbol: string;
-    religions: Array<Types.ObjectId>;
+    religions: Types.ObjectId[];
     alignment: string;
 }
 

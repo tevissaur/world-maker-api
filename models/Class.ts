@@ -3,13 +3,13 @@ import { Schema, model } from "mongoose";
 export interface IClass {
     name: string;
     description: string;
-    features: Array<IClassFeature>
-    subClasses?: Array<ISubClass>;
+    features: IClassFeature[]
+    subClasses?: ISubClass[];
 }
 
 export interface ISubClass {
     name: string;
-    features: Array<IClassFeature>;
+    features: IClassFeature[];
 }
 
 export interface IClassFeature {

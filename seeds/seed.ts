@@ -24,30 +24,30 @@ const {
   Types: { ObjectId },
 } = mongoose;
 
-let characterIds = [new ObjectId(), new ObjectId(), new ObjectId()];
+const characterIds = [new ObjectId(), new ObjectId(), new ObjectId()];
 
-let classIds = [new ObjectId(), new ObjectId(), new ObjectId(), new ObjectId()];
-let historyIds = [
+const classIds = [new ObjectId(), new ObjectId(), new ObjectId(), new ObjectId()];
+const historyIds = [
   new ObjectId(),
   new ObjectId(),
   new ObjectId(),
   new ObjectId(),
 ];
 
-let orgIds = [new ObjectId(), new ObjectId(), new ObjectId(), new ObjectId()];
+const orgIds = [new ObjectId(), new ObjectId(), new ObjectId(), new ObjectId()];
 
-let monsterIds = [
+const monsterIds = [
   new ObjectId(),
   new ObjectId(),
   new ObjectId(),
   new ObjectId(),
 ];
 
-let cityIds = [new ObjectId(), new ObjectId(), new ObjectId(), new ObjectId()];
+const cityIds = [new ObjectId(), new ObjectId(), new ObjectId(), new ObjectId()];
 
-let countryIds = [new ObjectId(), new ObjectId(), new ObjectId()];
+const countryIds = [new ObjectId(), new ObjectId(), new ObjectId()];
 
-let godIds = [
+const godIds = [
   new ObjectId(),
   new ObjectId(),
   new ObjectId(),
@@ -58,28 +58,28 @@ let godIds = [
   new ObjectId(),
 ];
 
-let raceIds = [new ObjectId(), new ObjectId(), new ObjectId(), new ObjectId()];
+const raceIds = [new ObjectId(), new ObjectId(), new ObjectId(), new ObjectId()];
 
-let religionIds = [new ObjectId(), new ObjectId(), new ObjectId()];
+const religionIds = [new ObjectId(), new ObjectId(), new ObjectId()];
 
-let userIds = [new ObjectId(), new ObjectId(), new ObjectId()];
+const userIds = [new ObjectId(), new ObjectId(), new ObjectId()];
 
-let worldIds = [new ObjectId(), new ObjectId(), new ObjectId()];
+const worldIds = [new ObjectId(), new ObjectId(), new ObjectId()];
 
-let regionIds = [
+const regionIds = [
   new ObjectId(),
   new ObjectId(),
   new ObjectId(),
   new ObjectId(),
 ];
 
-let landmarkIds = [
+const landmarkIds = [
   new ObjectId(),
   new ObjectId(),
   new ObjectId(),
   new ObjectId(),
 ];
-let godDomainIds = [
+const godDomainIds = [
   new ObjectId(),
   new ObjectId(),
   new ObjectId(),
@@ -443,7 +443,7 @@ const historyData = [
     date: "19990909",
   },
 ];
-const orgData: Array<IOrganization> = [
+const orgData: IOrganization[] = [
   {
     _id: orgIds[0],
     name: "The Shadow",

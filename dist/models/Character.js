@@ -65,3 +65,4 @@ const CharacterSchema = new mongoose_1.Schema({
 });
 const Character = (0, mongoose_1.model)('Character', CharacterSchema);
 exports.default = Character;
+//# sourceMappingURL=Character.js.map

@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose'
 
 interface IWiki {
     world: Schema.Types.ObjectId;
-    categories: Array<Schema.Types.ObjectId>;
+    categories: Schema.Types.ObjectId[];
 }
 
 

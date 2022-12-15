@@ -15,12 +15,12 @@ interface ICharacter {
     size: string;
     alignment: string;
     race: Types.ObjectId;
-    classes: Array<ICharacterClasses>;
+    classes: ICharacterClasses[];
     backstory: string;
-    bonds: Array<string>;
-    goals: Array<string>;
-    fears: Array<string>;
-    organizations: Array<Schema.Types.ObjectId>;
+    bonds: string[];
+    goals: string[];
+    fears: string[];
+    organizations: Schema.Types.ObjectId[];
     residentCity: Types.ObjectId;
     isNPC: boolean;
 }

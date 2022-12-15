@@ -4,12 +4,12 @@ interface ICalendar {
     months: [{
         name: string;
         numDaysPerMonth: number;
-    }]; 
+    }];
     week: {
         numDaysPerWeek: number;
-        days: Array<{
+        days: {
             name: string;
-        }>;
+        }[];
     };
     numDaysPerYear: number;
     events: string;

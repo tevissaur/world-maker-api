@@ -12,3 +12,4 @@ const regionSchema = new mongoose_1.Schema({
 });
 const Region = (0, mongoose_1.model)('Region', regionSchema);
 exports.default = Region;
+//# sourceMappingURL=Region.js.map

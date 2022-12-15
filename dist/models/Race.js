@@ -12,3 +12,4 @@ const raceSchema = new mongoose_1.Schema({
 });
 const Race = (0, mongoose_1.model)('Race', raceSchema);
 exports.default = Race;
+//# sourceMappingURL=Race.js.map

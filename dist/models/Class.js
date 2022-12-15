@@ -26,3 +26,4 @@ const ClassSchema = new mongoose_1.Schema({
 });
 const Class = (0, mongoose_1.model)('Class', ClassSchema);
 exports.default = Class;
+//# sourceMappingURL=Class.js.map

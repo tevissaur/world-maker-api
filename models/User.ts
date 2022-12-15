@@ -1,16 +1,9 @@
 import { Schema, model, Types } from "mongoose";
 import bcrypt from 'bcrypt';
+import { User } from "../__generated__/resolvers-types";
 
-interface IUser {
-  username: string;
-  password: string;
-  email: string;
-  userCreated: Date;
-  worlds: Array<Types.ObjectId>
-  isCorrectPassword: Function;
-}
 
-const userSchema = new Schema<IUser>({
+const userSchema = new Schema<User>({
   username: {
     type: String,
     trim: true,
@@ -21,7 +14,7 @@ const userSchema = new Schema<IUser>({
     type: String,
     trim: true,
     required: true,
-    validate: [({ length }) => length >= 6, "Password should be longer."]
+    validate: [({ length }: { length: number }) => length >= 6, "Password should be longer."]
   },
 
   email: {
@@ -31,8 +24,8 @@ const userSchema = new Schema<IUser>({
   },
 
   userCreated: {
-    type: Date,
-    default: Date.now
+    type: String,
+    default: Date.now.toString()
   },
   worlds: [
     {
@@ -53,10 +46,10 @@ userSchema.pre('save', async function (next) {
 });
 
 // custom method to compare and validate password for logging in
-userSchema.methods.isCorrectPassword = async function (password) {
+userSchema.methods.isCorrectPassword = async function (password: string) {
   return bcrypt.compare(password, this.password);
 };
 
-const User = model<IUser>("User", userSchema);
+const User = model<User>("User", userSchema);
 
 export default User;

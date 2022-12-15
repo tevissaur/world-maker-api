@@ -3,7 +3,7 @@ import { Schema, model, Types } from "mongoose";
 interface IReligion {
     name: string;
     description: string;
-    gods: Array<Types.ObjectId>;
+    gods: Types.ObjectId[];
 }
 
 const ReligionSchema = new Schema<IReligion>({

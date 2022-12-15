@@ -48,3 +48,4 @@ const Wiki_1 = __importDefault(require("./Wiki"));
 exports.Wiki = Wiki_1.default;
 const World_1 = __importDefault(require("./World"));
 exports.World = World_1.default;
+//# sourceMappingURL=index.js.map

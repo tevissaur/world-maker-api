@@ -12,3 +12,4 @@ const GodDomainSchema = new mongoose_1.Schema({
 });
 const GodDomain = (0, mongoose_1.model)('GodDomain', GodDomainSchema);
 exports.default = GodDomain;
+//# sourceMappingURL=GodDomain.js.map

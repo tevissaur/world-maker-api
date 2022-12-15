@@ -4,7 +4,7 @@ import { IWorld } from "./World";
 
 interface IGame {
     title: string;
-    players: Array<Types.ObjectId>;
+    players: Types.ObjectId[];
     gameMaster: Types.ObjectId;
     setting: Types.ObjectId;
 }
@@ -25,7 +25,7 @@ const GameSchema = new Schema<IGame>({
     setting: {
         type: Schema.Types.ObjectId,
         ref: 'World'
-    } 
+    }
 })
 
 const Game = model<IGame>('Game', GameSchema)

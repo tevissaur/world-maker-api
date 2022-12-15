@@ -47,3 +47,4 @@ const orgSchema = new mongoose_1.Schema({
 });
 const Organization = (0, mongoose_1.model)('Organization', orgSchema);
 exports.default = Organization;
+//# sourceMappingURL=Organization.js.map

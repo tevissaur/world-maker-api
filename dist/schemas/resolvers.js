@@ -7,11 +7,12 @@ const queryResolvers_1 = __importDefault(require("./QueryResolvers/queryResolver
 const mutationResolvers_1 = __importDefault(require("./MutationResolvers/mutationResolvers"));
 const resolvers = {
     ArticleSubject: {
-        __resolveType(obj, context, { variableValues: { modelName } }) {
-            return modelName;
-        },
+        __resolveType: (parent, context, info) => {
+            return parent.__typename;
+        }
     },
     Query: queryResolvers_1.default,
     Mutation: mutationResolvers_1.default
 };
 exports.default = resolvers;
+//# sourceMappingURL=resolvers.js.map

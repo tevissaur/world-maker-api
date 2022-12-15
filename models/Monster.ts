@@ -4,7 +4,7 @@ interface IMonster {
     name: string;
     description: string;
     size: string;
-    regions: Array<Types.ObjectId>
+    regions: Types.ObjectId[]
 }
 
 const monsterSchema = new Schema<IMonster>({

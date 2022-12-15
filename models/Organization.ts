@@ -4,15 +4,15 @@ export interface IOrganization {
     _id?: Types.ObjectId;
     name: string;
     motives: {
-        bonds: Array<string>;
-        goals: Array<string>;
-        fears: Array<string>;
+        bonds: string[];
+        goals: string[];
+        fears: string[];
     }
     relationships: {
-        friends: Array<Types.ObjectId>
-        enemies: Array<Types.ObjectId>
+        friends: Types.ObjectId[]
+        enemies: Types.ObjectId[]
     }
-    activeRegions: Array<Types.ObjectId>
+    activeRegions: Types.ObjectId[]
 }
 
 const orgSchema = new Schema<IOrganization>({

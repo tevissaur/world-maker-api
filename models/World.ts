@@ -4,11 +4,11 @@ import utilsService from '../services/utils.service';
 export interface IWorld {
     name: string;
     creator: Schema.Types.ObjectId;
-    religions: Array<Schema.Types.ObjectId>;
-    classes: Array<Schema.Types.ObjectId>;
-    races: Array<Schema.Types.ObjectId>;
-    regions: Array<Schema.Types.ObjectId>;
-    historicalEvents: Array<Schema.Types.ObjectId>;
+    religions: Schema.Types.ObjectId[];
+    classes: Schema.Types.ObjectId[];
+    races: Schema.Types.ObjectId[];
+    regions: Schema.Types.ObjectId[];
+    historicalEvents: Schema.Types.ObjectId[];
     description: string;
     wiki: Schema.Types.ObjectId;
 }
@@ -69,6 +69,6 @@ worldSchema.post("save", async function (doc, next) {
     next();
   });
 
-const World = model<IWorld>('World', worldSchema) 
+const World = model<IWorld>('World', worldSchema)
 
 export default World

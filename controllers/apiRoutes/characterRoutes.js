@@ -28,7 +28,7 @@ router.post('/', async (req, res) => {
     const { body } = req
     try {
         const newCharacter = await Character.create(body)
-        
+
         res.json(newCharacter)
     } catch(err) {
         res.status(500).json(err)
@@ -40,10 +40,10 @@ router.put('/:_id', async (req, res) => {
         const { countryId } = req.body
         const country = await Country.findById(countryId)
         console.log(country)
-        const updatedCharacter = await Character.updateOne({ _id }, { country }, { upsert: true })      
+        const updatedCharacter = await Character.updateOne({ _id }, { country }, { upsert: true })
         res.json(updatedCharacter)
     } catch (error) {
-        
+
     }
 })
 router.get('/:_id', async (req, res) => {

@@ -28,3 +28,4 @@ const countrySchema = new mongoose_1.Schema({
 });
 const Country = (0, mongoose_1.model)('Country', countrySchema);
 exports.default = Country;
+//# sourceMappingURL=Country.js.map

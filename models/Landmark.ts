@@ -4,7 +4,7 @@ import utilsService from "../services/utils.service";
 interface ILandmark {
   name: string;
   description: string;
-  regions: Array<Schema.Types.ObjectId>;
+  regions: Schema.Types.ObjectId[];
 }
 
 const landmarkSchema = new Schema<ILandmark>({

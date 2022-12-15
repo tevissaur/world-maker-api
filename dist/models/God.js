@@ -29,3 +29,4 @@ const GodSchema = new mongoose_1.Schema({
 });
 const God = (0, mongoose_1.model)('God', GodSchema);
 exports.default = God;
+//# sourceMappingURL=God.js.map

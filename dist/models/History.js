@@ -18,3 +18,4 @@ const historySchema = new mongoose_1.Schema({
 });
 const History = (0, mongoose_1.model)('History', historySchema);
 exports.default = History;
+//# sourceMappingURL=History.js.map

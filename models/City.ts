@@ -2,7 +2,7 @@ import { Schema, Types, model } from "mongoose";
 
 interface ICity {
     name: string;
-    notableCharacters: Array<Types.ObjectId>;
+    notableCharacters: Types.ObjectId[];
     country: Types.ObjectId;
     description: string;
 }

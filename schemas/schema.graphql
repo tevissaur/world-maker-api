@@ -228,17 +228,20 @@ Input types
 """
 
 input HistoryInput {
+  _id: ID  
   title: String
   body: String
   date: String
 }
 
 input MonsterInput {
+  _id: ID  
   name: String
   description: String
   size: String
 }
 input UserInput {
+  _id: ID  
   username: String
   password: String
   email: String
@@ -246,6 +249,7 @@ input UserInput {
 }
 
 input RegionInput {
+  _id: ID  
   name: String
   countries: [CountryInput]
   landmarks: [LandmarkInput]
@@ -253,10 +257,12 @@ input RegionInput {
 }
 
 input LandmarkInput {
+  _id: ID  
   name: String
   description: String
 }
 input GodInput {
+  _id: ID  
   name: String
   description: String
   domains: [String]
@@ -264,16 +270,19 @@ input GodInput {
   alignment: String
 }
 input ReligionInput {
+  _id: ID  
   name: String
   gods: [GodInput]
 }
 
 input GovernmentInput {
+  _id: ID  
   members: [CharacterInput]
   style: String
 }
 
 input CountryInput {
+  _id: ID  
   name: String
   description: String
   government: GovernmentInput
@@ -282,11 +291,13 @@ input CountryInput {
 }
 
 input CityInput {
+  _id: ID  
   name: String
   description: String
 }
 
 input CharacterInput {
+  _id: ID  
   name: String
   description: String
   size: String
@@ -299,16 +310,19 @@ input CharacterInput {
 }
 
 input ClassInput {
+  _id: ID  
   name: String
   description: String
 }
 
 input RaceInput {
+  _id: ID
   name: String
   description: String
 }
 
 input WorldInput {
+  _id: ID
   name: String
   creator: ID
   regions: [RegionInput]
@@ -331,23 +345,23 @@ type Mutation {
   updateWorld(world: WorldInput): World
   deleteWorld(worldId: ID): World
 
-  createCharacter(character: CharacterInput, worldId: ID): World
-  updateCharacter(character: CharacterInput, worldId: ID): World
-  deleteCharacter(characterId: ID, worldId: ID): World
+  createCharacter(character: CharacterInput, worldId: ID): Character
+  updateCharacter(character: CharacterInput, worldId: ID): Character
+  deleteCharacter(characterId: ID, worldId: ID): Character
 
-  createReligion(religion: ReligionInput, worldId: ID): World
-  updateReligion(religion: ReligionInput, worldId: ID): World
-  deleteReligion(religionId: ID, worldId: ID): World
+  createReligion(religion: ReligionInput, worldId: ID): Religion
+  updateReligion(religion: ReligionInput, worldId: ID): Religion
+  deleteReligion(religionId: ID, worldId: ID): Religion
 
-  createGod(god: GodInput, worldId: ID, religionId: ID): World
-  updateGod(god: GodInput, worldId: ID, religionId: ID): World
-  deleteGod(godId: ID, worldId: ID): World
+  createGod(god: GodInput, worldId: ID, religionId: ID): God
+  updateGod(god: GodInput, worldId: ID, religionId: ID): God
+  deleteGod(godId: ID, worldId: ID): God
 
-  createRegion(region: RegionInput, worldId: ID): World
-  updateRegion(region: RegionInput, worldId: ID): World
-  deleteRegion(regionId: ID, worldId: ID): World
+  createRegion(region: RegionInput, worldId: ID): Region
+  updateRegion(region: RegionInput, worldId: ID): Region
+  deleteRegion(regionId: ID, worldId: ID): Region
 
-  createMonster(monster: MonsterInput, worldId: ID, regionId: ID): World
-  updateMonster(monster: MonsterInput, worldId: ID, regionId: ID): World
-  deleteMonster(monsterId: ID, worldId: ID): World
+  createMonster(monster: MonsterInput, worldId: ID, regionId: ID): Monster
+  updateMonster(monster: MonsterInput, worldId: ID, regionId: ID): Monster
+  deleteMonster(monsterId: ID, worldId: ID): Monster
 }

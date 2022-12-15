@@ -13,3 +13,4 @@ const WikiSchema = new mongoose_1.Schema({
 });
 const Wiki = (0, mongoose_1.model)('Wiki', WikiSchema);
 exports.default = Wiki;
+//# sourceMappingURL=Wiki.js.map

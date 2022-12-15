@@ -13,21 +13,21 @@ import {
 	History,
 	Organization,
 } from "../../models";
+import { MutationResolvers } from "../../__generated__/resolvers-types";
 
 import { signToken } from "../../utils/auth";
 
-const Mutation = {
+const Mutation: MutationResolvers = {
 	createUser: async (parent, args) => {
 		try {
 			const user = await User.create(args);
 			const token = signToken(user);
 			return { user, token };
 		} catch (err) {
-			console.log(err);
+			return (err);
 			return err;
 		}
 	},
-	updateToken: async (parents, args) => {},
 	login: async (parent, { email, password }) => {
 		try {
 			const user = await User.findOne({ email });
@@ -36,7 +36,7 @@ const Mutation = {
 				throw new Error("No Profile with that email");
 			}
 
-			const correctPw = await user.isCorrectPassword(password);
+			const correctPw = await user.schema.methods.isCorrectPassword(password);
 
 			if (!correctPw) {
 				throw new Error("Incorrect password!");
@@ -44,15 +44,12 @@ const Mutation = {
 			const token = signToken(user);
 			return { token, user };
 		} catch (err) {
-			console.log(err);
+			return (err);
 		}
 	},
 	createWorld: async (parent, { world }) => {
 		try {
-			const newWorld = await World.create(world);
-			console.log(newWorld);
-			console.log(User.collection.collectionName);
-			return newWorld;
+			return await World.create(world);
 		} catch (err) {
 			return err;
 		}
@@ -81,7 +78,7 @@ const Mutation = {
 		try {
 			return await Character.create(character);
 		} catch (error) {
-			console.log(error);
+			return (error);
 		}
 	},
 	updateCharacter: async (parent, { character, worldId }) => {
@@ -121,7 +118,7 @@ const Mutation = {
 			return error;
 		}
 	},
-	deleteMonster: async (parent, { monsterId, worldId, regionId }) => {
+	deleteMonster: async (parent, { monsterId, worldId }) => {
 		try {
 			return await Monster.findByIdAndDelete(monsterId);
 		} catch (error) {
@@ -140,9 +137,9 @@ const Mutation = {
 					new: true,
 				}
 			);
-			return updatedWorld;
+			return newRegion;
 		} catch (error) {
-			console.log(error);
+			return error;
 		}
 	},
 	updateRegion: async (parent, { region, worldId }) => {
@@ -192,9 +189,9 @@ const Mutation = {
 					},
 				},
 			]);
-			return world;
+			return updatedRegion;
 		} catch (error) {
-			console.log(error);
+			return error;
 		}
 	},
 	deleteRegion: async (parent, { regionId, worldId }) => {
@@ -242,7 +239,7 @@ const Mutation = {
 			]);
 			return world;
 		} catch (error) {
-			console.log(error);
+			return error;
 		}
 	},
 	createReligion: async (parent, { religion, worldId }) => {
@@ -296,59 +293,19 @@ const Mutation = {
 					},
 				},
 			]);
-			return updatedWorld;
+			return newReligion;
 		} catch (error) {
-			console.log(error);
+			return error;
 		}
 	},
 	updateReligion: async (parent, { religion, worldId }) => {
 		try {
-			const updatedReligion = await Religion.findByIdAndUpdate(religion._id, {
+			return await Religion.findByIdAndUpdate(religion._id, {
 				$set: { ...religion },
 			});
-			const world = await World.findOneAndUpdate(worldId).populate([
-				{
-					path: "regions",
-					model: "Region",
-					populate: {
-						path: "countries",
-						model: "Country",
-						populate: [
-							{
-								path: "cities",
-								model: "City",
-							},
-							{
-								path: "religions",
-								model: "Religion",
-								populate: {
-									path: "gods",
-									model: "God",
-								},
-							},
-						],
-					},
-				},
-				{
-					path: "religions",
-					model: "Religion",
-					populate: {
-						path: "gods",
-						model: "God",
-					},
-				},
-				{
-					path: "characters",
-					model: "Character",
-					populate: {
-						path: "race",
-						model: "Race",
-					},
-				},
-			]);
-			return world;
+			
 		} catch (error) {
-			console.log(error);
+			return (error);
 		}
 	},
 	deleteReligion: async (parent, { religionId, worldId }) => {
@@ -396,7 +353,7 @@ const Mutation = {
 			]);
 			return world;
 		} catch (error) {
-			console.log(error);
+			return (error);
 		}
 	},
 	createGod: async (parent, { god, worldId, religionId }) => {
@@ -454,108 +411,25 @@ const Mutation = {
 
 			return world;
 		} catch (error) {
-			console.log(error);
+			return (error);
 		}
 	},
 	updateGod: async (parent, { god, worldId }) => {
 		try {
-			const updatedGod = await god.findByIdAndUpdate(god._id, {
+			return await God.findByIdAndUpdate(god._id, {
 				$set: { ...god },
 			});
-			const world = await World.findOneAndUpdate(worldId).populate([
-				{
-					path: "regions",
-					model: "Region",
-					populate: {
-						path: "countries",
-						model: "Country",
-						populate: [
-							{
-								path: "cities",
-								model: "City",
-							},
-							{
-								path: "religions",
-								model: "Religion",
-								populate: {
-									path: "gods",
-									model: "God",
-								},
-							},
-						],
-					},
-				},
-				{
-					path: "religions",
-					model: "Religion",
-					populate: {
-						path: "gods",
-						model: "God",
-					},
-				},
-				{
-					path: "characters",
-					model: "Character",
-					populate: {
-						path: "race",
-						model: "Race",
-					},
-				},
-			]);
-			return world;
 		} catch (error) {
-			console.log(error);
+			return (error);
 		}
 	},
 	deleteGod: async (parent, { godId, worldId }) => {
 		try {
-			const deleted = await God.findByIdAndDelete(godId);
-			const world = await World.findById(worldId).populate([
-				{
-					path: "regions",
-					model: "Region",
-					populate: {
-						path: "countries",
-						model: "Country",
-						populate: [
-							{
-								path: "cities",
-								model: "City",
-							},
-							{
-								path: "religions",
-								model: "Religion",
-								populate: {
-									path: "gods",
-									model: "God",
-								},
-							},
-						],
-					},
-				},
-				{
-					path: "religions",
-					model: "Religion",
-					populate: {
-						path: "gods",
-						model: "God",
-					},
-				},
-				{
-					path: "characters",
-					model: "Character",
-					populate: {
-						path: "race",
-						model: "Race",
-					},
-				},
-			]);
-			return world;
+			return await God.findByIdAndDelete(godId);
 		} catch (error) {
-			console.log(error);
+			return (error);
 		}
 	},
 };
 
-
-export default Mutation
+export default Mutation;

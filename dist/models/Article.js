@@ -28,3 +28,4 @@ const ArticleSchema = new mongoose_1.Schema({
 });
 const Article = (0, mongoose_1.model)('Article', ArticleSchema);
 exports.default = Article;
+//# sourceMappingURL=Article.js.map

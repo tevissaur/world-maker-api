@@ -13,48 +13,49 @@ import {
 	History,
 	Organization,
 } from "../../models";
+import { QueryResolvers } from "../../__generated__/resolvers-types";
 
-const Query = {
+const Query: QueryResolvers = {
 	getSingleSubject: async (parent, { _id, modelName }) => {
 		try {
 			switch (modelName) {
-				case "User":
+				case User.modelName:
 					return await User.findById(_id);
 
-				case "Character":
+				case Character.modelName:
 					return await Character.findById(_id);
 
-				case "Religion":
+				case Religion.modelName:
 					return await Religion.findById(_id);
 
-				case "Region":
+				case Region.modelName:
 					return await Region.findById(_id);
 
-				case "City":
+				case City.modelName:
 					return await City.findById(_id);
 
-				case "Country":
+				case Country.modelName:
 					return await Country.findById(_id);
 
-				case "World":
+				case World.modelName:
 					return await World.findById(_id);
 
-				case "Monster":
+				case Monster.modelName:
 					return await Monster.findById(_id);
 
-				case "God":
+				case God.modelName:
 					return await God.findById(_id);
 
-				case "Class":
+				case Class.modelName:
 					return await Class.findById(_id);
 
-				case "History":
+				case History.modelName:
 					return await History.findById(_id);
 
-				case "Race":
+				case Race.modelName:
 					return await Race.findById(_id);
 
-				case "Organization":
+				case Organization.modelName:
 					return await Organization.findById(_id);
 
 				default:

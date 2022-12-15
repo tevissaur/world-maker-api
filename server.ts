@@ -13,7 +13,7 @@ import db from "./config/connection";
 // import routes from './controllers';
 
 interface MyContext {
-	token?: String;
+	token?: string;
 }
 
 function startApolloServer() {
@@ -22,7 +22,7 @@ function startApolloServer() {
 
 	db.once("open", async () => {
 
-    const port = parseInt(process.env.PORT) || 3001;
+    const port = Number(process.env.PORT) || 3001;
     const app = express();
     const httpServer = http.createServer(app)
     const server = new ApolloServer<MyContext>({
@@ -36,7 +36,9 @@ function startApolloServer() {
       '/graphql',
       cors<cors.CorsRequest>({ origin: process.env.ALLOWED_CORS_ORIGIN.split(';') }),
       json(),
-      expressMiddleware(server)
+      expressMiddleware(server,{
+        context: authMiddleware
+      })
     )
 
     await new Promise<void>((resolve) => httpServer.listen({ port }, resolve))

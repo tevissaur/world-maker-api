@@ -35,3 +35,4 @@ const uri = process.env.NODE_ENV === "production"
 mongoose_1.default.connect(uri);
 const db = mongoose_1.default.connection;
 exports.default = db;
+//# sourceMappingURL=connection.js.map

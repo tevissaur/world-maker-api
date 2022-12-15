@@ -17,3 +17,4 @@ const citySchema = new mongoose_1.Schema({
 });
 const City = (0, mongoose_1.model)('City', citySchema);
 exports.default = City;
+//# sourceMappingURL=City.js.map

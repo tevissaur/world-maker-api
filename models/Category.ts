@@ -4,7 +4,7 @@ import utilsService from "../services/utils.service";
 interface ICategory {
   name: string;
   parentCategory: Schema.Types.ObjectId;
-  subCategories: Array<Schema.Types.ObjectId>;
+  subCategories: Schema.Types.ObjectId[];
 }
 
 const CategorySchema = new Schema<ICategory>({
