@@ -1,12 +1,11 @@
 import express from "express";
 import { ApolloServer } from "@apollo/server";
-import { startStandaloneServer } from "@apollo/server/standalone";
 import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
 import path from "path";
 import { typeDefs, resolvers } from "./schemas/index";
 import { authMiddleware } from "./utils/auth";
-import cors from "cors";
+import cors from 'cors';
 import http from "http";
 import { json } from "body-parser";
 
@@ -17,7 +16,7 @@ interface MyContext {
 	token?: String;
 }
 
-async function startApolloServer() {
+function startApolloServer() {
 
 	db.on("error", (error: any) => console.log(`DB Error: ${error}`));
 
