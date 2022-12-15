@@ -34,7 +34,7 @@ function startApolloServer() {
 
     app.use(
       '/graphql',
-      cors<cors.CorsRequest>({ origin: process.env.ALLOWED_CORS_ORIGIN.split(';') }),
+      cors<cors.CorsRequest>(),
       json(),
       expressMiddleware(server,{
         context: authMiddleware
