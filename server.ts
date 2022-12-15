@@ -28,14 +28,13 @@ function startApolloServer() {
     const server = new ApolloServer<MyContext>({
       typeDefs,
       resolvers,
-      plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
-      introspection: true
+      plugins: [ApolloServerPluginDrainHttpServer({ httpServer })]
     });
     await server.start();
 
     app.use(
       '/graphql',
-      cors<cors.CorsRequest>(),
+      cors<cors.CorsRequest>({ origin: [ process.env.ALLOWED_CORS_ORIGIN ] }),
       json(),
       expressMiddleware(server,{
         context: authMiddleware
