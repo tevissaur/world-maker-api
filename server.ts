@@ -28,7 +28,8 @@ function startApolloServer() {
     const server = new ApolloServer<MyContext>({
       typeDefs,
       resolvers,
-      plugins: [ApolloServerPluginDrainHttpServer({ httpServer })]
+      plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+      introspection: true
     });
     await server.start();
 
