@@ -1,10 +1,8 @@
-const jwt = require('jsonwebtoken');
-require('dotenv').config()
-
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const secret = process.env.JWT_SECRET;
-const expiration = '12h';
-
+const expiration = "12h";
 
 export function authMiddleware({ req }) {
   // allows token to be sent via req.body, req.query, or headers
@@ -12,7 +10,7 @@ export function authMiddleware({ req }) {
 
   // ["Bearer", "<tokenvalue>"]
   if (req.headers.authorization) {
-    token = token.split(' ').pop().trim();
+    token = token.split(" ").pop().trim();
   }
 
   if (!token) {
@@ -23,7 +21,7 @@ export function authMiddleware({ req }) {
     const { data } = jwt.verify(token, secret, { maxAge: expiration });
     req.user = data;
   } catch {
-    console.log('Invalid token');
+    console.log("Invalid token");
   }
 
   return req;

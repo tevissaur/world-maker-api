@@ -6,12 +6,13 @@ union ArticleSubject = Character | City | Class | Country | God | Landmark | Mon
 
 enum ArticleSubjectModel {
   CHARACTER
+  USER
 }
 
 type Article {
   _id: ID
   title: String
-  subjectModel: ArticleSubjectModel
+  subjectModel: String
   subject: ArticleSubject
   body: String
   category: Category
@@ -201,12 +202,12 @@ type World {
   _id: ID!
   name: String
   creator: User
-  regions: [Region]
   religions: [Religion]
-  races: [Race]
   classes: [Class]
+  races: [Race]
+  regions: [Region]
+  historicalEvents: [History]
   description: String
-  characters: [Character]
   wiki: Wiki
 }
 
@@ -226,6 +227,11 @@ type Auth {
 Input types
 """
 
+input HistoryInput {
+  title: String
+  body: String
+  date: String
+}
 
 input MonsterInput {
   name: String
@@ -308,23 +314,12 @@ input WorldInput {
   regions: [RegionInput]
   religions: [ReligionInput]
   description: String
-  characters: [CharacterInput]
+  historicalEvents: [HistoryInput]
 }
 
-
-
 type Query {
-  characters: [Character]!
-  cities: [City]!
-  races: [Race]!
-  classes: [Class]!
-  countries: [Country]
-  worlds: [World]
-  getSingleSubject(_id: ID!, modelName: String!): ArticleSubject
-  getAllOfOneSubject(modelName: String!): [ArticleSubject]
-  me(_id: ID!): User
-  userWorlds(creator: ID!): [World]
-  world(name: String!): World
+  getSingleSubject(_id: ID, modelName: String): ArticleSubject 
+  getAllOfOneSubject(modelName: String): [ArticleSubject]
 }
 
 type Mutation {

@@ -1,26 +1,35 @@
-import { Schema, model } from 'mongoose'
+import { Schema, model } from "mongoose";
+import utilsService from "../services/utils.service";
 
 interface ICategory {
-    name: string;
-    parentCategory: Schema.Types.ObjectId;
-    subCategories: Array<Schema.Types.ObjectId>;
+  name: string;
+  parentCategory: Schema.Types.ObjectId;
+  subCategories: Array<Schema.Types.ObjectId>;
 }
 
 const CategorySchema = new Schema<ICategory>({
-    name: {
-        type: String
+  name: {
+    type: String,
+  },
+  parentCategory: {
+    type: Schema.Types.ObjectId,
+    ref: "Category",
+  },
+  subCategories: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Category",
+      default: [],
     },
-    parentCategory: {
-        type: Schema.Types.ObjectId,
-        ref: 'Category'
-    },
-    subCategories: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Category',
-        default: []
-    }]
-})
+  ],
+});
 
-const Category = model<ICategory>('Category', CategorySchema)
+CategorySchema.pre("save", async function (next) {
+  console.log(this, "x");
+  await utilsService.createDefaultArticle(this);
+  next();
+});
 
-export default Category
+const Category = model<ICategory>("Category", CategorySchema);
+
+export default Category;

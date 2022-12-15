@@ -15,9 +15,10 @@ import {
   User,
   World,
   GodDomain,
+  Category,
+  Article,
 } from "../models";
 import mongoose from "mongoose";
-import { IClass } from "../models/Class";
 import { IOrganization } from "../models/Organization";
 const {
   Types: { ObjectId },
@@ -26,7 +27,12 @@ const {
 let characterIds = [new ObjectId(), new ObjectId(), new ObjectId()];
 
 let classIds = [new ObjectId(), new ObjectId(), new ObjectId(), new ObjectId()];
-let historyIds = [new ObjectId(), new ObjectId(), new ObjectId(), new ObjectId()];
+let historyIds = [
+  new ObjectId(),
+  new ObjectId(),
+  new ObjectId(),
+  new ObjectId(),
+];
 
 let orgIds = [new ObjectId(), new ObjectId(), new ObjectId(), new ObjectId()];
 
@@ -85,7 +91,6 @@ let godDomainIds = [
   new ObjectId(),
   new ObjectId(),
 ];
-
 
 const monsterData = [
   {
@@ -260,7 +265,7 @@ const godsData = [
     _id: godIds[0],
     name: "Dansa",
     description: "the god of Brawls, Athletics, and Smithing",
-    domains: ["Ambition", "Strength", "Forge"],
+    domains: [godDomainIds[0], godDomainIds[1], godDomainIds[2]],
     symbol: "A fist holding a smithing hammer",
     alignment: "LG",
   },
@@ -268,7 +273,7 @@ const godsData = [
     _id: godIds[1],
     name: "Inaely",
     description: " the goddess of Summer, Justice, Truth, and Order",
-    domains: ["City", "Strength", "Knowledge"],
+    domains: [godDomainIds[0], godDomainIds[1], godDomainIds[2]],
     symbol: "A fist holding a smithing hammer",
     alignment: "LG",
   },
@@ -276,7 +281,7 @@ const godsData = [
     _id: godIds[2],
     name: "Bareshna",
     description: "the Oracle of Eleron, the god of the Sun",
-    domains: ["Light"],
+    domains: [godDomainIds[0], godDomainIds[1], godDomainIds[2]],
     symbol: "An eye with the sun as the pupil",
     alignment: "NG",
   },
@@ -284,7 +289,7 @@ const godsData = [
     _id: godIds[3],
     name: "The Traveler",
     description: "the god of Trickery",
-    domains: ["Trickery", "Grave"],
+    domains: [godDomainIds[0], godDomainIds[1], godDomainIds[2]],
     symbol:
       "Hand giving a finger gun with a banner popping out of the barrel saying 'BANG!' or whatever you want really he doesn't care",
     alignment: "CN",
@@ -293,7 +298,7 @@ const godsData = [
     _id: godIds[4],
     name: "Vodu",
     description: "the Sea, River, and Oceans",
-    domains: ["Druidic"],
+    domains: [godDomainIds[0], godDomainIds[1], godDomainIds[2]],
     symbol: "Water",
     alignment: "CN",
   },
@@ -301,7 +306,7 @@ const godsData = [
     _id: godIds[5],
     name: "Asmodeus",
     description: "the god of Tyranny, and Deceit",
-    domains: ["Trickery", "Forge", "War"],
+    domains: [godDomainIds[0], godDomainIds[1], godDomainIds[2]],
     symbol: "Devil's Horns",
     alignment: "LE",
   },
@@ -309,7 +314,7 @@ const godsData = [
     _id: godIds[6],
     name: "Tiamat",
     description: "the dragon goddess of Evil",
-    domains: ["War", "Death"],
+    domains: [godDomainIds[0], godDomainIds[1], godDomainIds[2]],
     symbol: "Dragons head with broken horns",
     alignment: "NE",
   },
@@ -317,7 +322,7 @@ const godsData = [
     _id: godIds[7],
     name: "Bhaal",
     description: "the god of Murder",
-    domains: ["Death", "Grave", "War"],
+    domains: [godDomainIds[0], godDomainIds[1], godDomainIds[2]],
     symbol: "Skull with blood coming out the eyes",
     alignment: "CE",
   },
@@ -464,13 +469,16 @@ const userData = {
 };
 
 db.once("open", async () => {
+  await Article.deleteMany({})
   await Character.deleteMany({});
   await City.deleteMany({});
   await Country.deleteMany({});
   await Class.deleteMany({});
+  await Category.deleteMany({});
   await God.deleteMany({});
   await GodDomain.deleteMany({});
   await History.deleteMany({});
+  await Landmark.deleteMany({});
   await Monster.deleteMany({});
   await Organization.deleteMany({});
   await Race.deleteMany({});
@@ -481,9 +489,9 @@ db.once("open", async () => {
 
   console.log("Database emptied.");
 
-  await Character.insertMany(characterData);
+  await Character.create(characterData);
   console.log("Character seeded!");
-  await City.insertMany(cityData);
+  await City.create(cityData);
   console.log("City seeded!");
   await Country.insertMany(countryData);
   console.log("Country seeded!");

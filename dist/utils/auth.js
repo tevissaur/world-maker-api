@@ -1,16 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.signToken = exports.authMiddleware = void 0;
-const jwt = require('jsonwebtoken');
-require('dotenv').config();
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 const secret = process.env.JWT_SECRET;
-const expiration = '12h';
+const expiration = "12h";
 function authMiddleware({ req }) {
     // allows token to be sent via req.body, req.query, or headers
     let token = req.body.token || req.query.token || req.headers.authorization;
     // ["Bearer", "<tokenvalue>"]
     if (req.headers.authorization) {
-        token = token.split(' ').pop().trim();
+        token = token.split(" ").pop().trim();
     }
     if (!token) {
         return req;
@@ -20,7 +20,7 @@ function authMiddleware({ req }) {
         req.user = data;
     }
     catch {
-        console.log('Invalid token');
+        console.log("Invalid token");
     }
     return req;
 }

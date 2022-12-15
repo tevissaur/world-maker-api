@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import utilsService from '../services/utils.service';
 
 export interface IWorld {
     name: string;
@@ -62,6 +63,11 @@ const worldSchema = new Schema<IWorld>({
 })
 
 // TODO: Virtual Populate Characters
+worldSchema.post("save", async function (doc, next) {
+    console.log(doc.toJSON(), this.baseModelName);
+    await utilsService.createDefaultArticle(doc);
+    next();
+  });
 
 const World = model<IWorld>('World', worldSchema) 
 

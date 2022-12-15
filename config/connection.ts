@@ -1,9 +1,14 @@
+import * as dotenv from 'dotenv'
 import mongoose from "mongoose";
+dotenv.config()
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/forenedb");
+const uri =
+  process.env.NODE_ENV === "production"
+    ? process.env.MONGODB_URI
+    : "mongodb://localhost/worldmakerdb";
 
+mongoose.connect(uri);
 
-const db = mongoose.connection
-
+const db = mongoose.connection;
 
 export default db;

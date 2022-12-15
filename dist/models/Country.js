@@ -17,7 +17,7 @@ const countrySchema = new mongoose_1.Schema({
             }],
         style: {
             type: String,
-            enum: ['Representative Democracy', 'Federation', '']
+            enum: ['Representative Democracy', 'Federation', 'Parlimentary Republic', 'Feudal', 'Theocracy']
         }
     },
     region: {

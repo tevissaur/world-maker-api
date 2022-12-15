@@ -1,6 +1,10 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
+const utils_service_1 = __importDefault(require("../services/utils.service"));
 const worldSchema = new mongoose_1.Schema({
     name: {
         type: String,
@@ -50,5 +54,10 @@ const worldSchema = new mongoose_1.Schema({
     }
 });
 // TODO: Virtual Populate Characters
+worldSchema.post("save", async function (doc, next) {
+    console.log(doc.toJSON(), this.baseModelName);
+    await utils_service_1.default.createDefaultArticle(doc);
+    next();
+});
 const World = (0, mongoose_1.model)('World', worldSchema);
 exports.default = World;
