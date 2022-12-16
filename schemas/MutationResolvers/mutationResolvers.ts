@@ -36,7 +36,7 @@ const Mutation: MutationResolvers = {
 				throw new Error("No Profile with that email");
 			}
 
-			const correctPw = await user.schema.methods.isCorrectPassword(password);
+			const correctPw = await user.schema.methods.isCorrectPassword(password, user.password);
 
 			if (!correctPw) {
 				throw new Error("Incorrect password!");
