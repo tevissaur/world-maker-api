@@ -32,7 +32,6 @@ const CategorySchema = new mongoose_1.Schema({
 });
 CategorySchema.pre("save", function (next) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log(this, "x");
         yield utils_service_1.default.createDefaultArticle(this);
         next();
     });

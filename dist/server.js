@@ -31,11 +31,14 @@ function startApolloServer() {
         const server = new server_1.ApolloServer({
             typeDefs: index_1.typeDefs,
             resolvers: index_1.resolvers,
-            plugins: [(0, drainHttpServer_1.ApolloServerPluginDrainHttpServer)({ httpServer })]
+            plugins: [(0, drainHttpServer_1.ApolloServerPluginDrainHttpServer)({ httpServer })],
         });
         yield server.start();
-        app.use('/graphql', (0, cors_1.default)({ origin: process.env.ALLOWED_CORS_ORIGIN.split(';') }), (0, body_parser_1.json)(), (0, express4_1.expressMiddleware)(server, {
-            context: auth_1.authMiddleware
+        app.use("/graphql", (0, cors_1.default)({
+            origin: [process.env.ALLOWED_CORS_ORIGIN, "http://localhost:3000"],
+            credentials: true
+        }), (0, body_parser_1.json)(), (0, express4_1.expressMiddleware)(server, {
+            context: auth_1.authMiddleware,
         }));
         yield new Promise((resolve) => httpServer.listen({ port }, resolve));
         console.log(`Server ready at http://localhost:${port}/graphql`);

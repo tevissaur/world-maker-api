@@ -26,13 +26,11 @@ const Mutation = {
     login: (parent, { email, password }) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const user = yield models_1.User.findOne({ email });
-            if (!user) {
+            if (!user)
                 throw new Error("No Profile with that email");
-            }
-            const correctPw = yield user.schema.methods.isCorrectPassword(password);
-            if (!correctPw) {
+            const correctPw = yield user.schema.methods.isCorrectPassword(password, user.password);
+            if (!correctPw)
                 throw new Error("Incorrect password!");
-            }
             const token = (0, auth_1.signToken)(user);
             return { token, user };
         }

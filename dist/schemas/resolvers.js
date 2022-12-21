@@ -8,7 +8,7 @@ const mutationResolvers_1 = __importDefault(require("./MutationResolvers/mutatio
 const resolvers = {
     ArticleSubject: {
         __resolveType: (parent, context, info) => {
-            return parent.__typename;
+            return context.body.variables.modelName;
         }
     },
     Query: queryResolvers_1.default,

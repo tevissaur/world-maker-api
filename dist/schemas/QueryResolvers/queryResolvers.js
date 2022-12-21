@@ -86,6 +86,30 @@ const Query = {
             return error;
         }
     }),
+    getMe: (parent, { _id }) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            return yield models_1.User.findById(_id);
+        }
+        catch (error) {
+            return error;
+        }
+    }),
+    getWorld: (parent, { _id }) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            return yield models_1.World.findById(_id);
+        }
+        catch (error) {
+            return error;
+        }
+    }),
+    getCharacter: (parent, { _id }) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            yield models_1.Character.findById(_id);
+        }
+        catch (error) {
+            return error;
+        }
+    }),
 };
 exports.default = Query;
 //# sourceMappingURL=queryResolvers.js.map

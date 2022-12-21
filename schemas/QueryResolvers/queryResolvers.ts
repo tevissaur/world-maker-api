@@ -115,7 +115,27 @@ const Query: QueryResolvers = {
 			return error;
 		}
 	},
+	getMe: async (parent, { _id }) => {
+		try {
+			return await User.findById(_id);
+		} catch (error) {
+			return error;
+		}
+	},
+	getWorld: async (parent, { _id }) => {
+		try {
+			return await World.findById(_id);
+		} catch (error) {
+			return error;
+		}
+	},
+	getCharacter: async (parent, { _id }) => {
+		try {
+			await Character.findById(_id);
+		} catch (error) {
+			return error;
+		}
+	},
 };
 
-
-export default Query
+export default Query;

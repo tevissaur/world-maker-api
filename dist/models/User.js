@@ -33,7 +33,7 @@ const userSchema = new mongoose_1.Schema({
     },
     userCreated: {
         type: String,
-        default: Date.now.toString()
+        default: Date.now().toString()
     },
     worlds: [
         {
@@ -53,11 +53,9 @@ userSchema.pre('save', function (next) {
     });
 });
 // custom method to compare and validate password for logging in
-userSchema.methods.isCorrectPassword = function (password) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return bcrypt_1.default.compare(password, this.password);
-    });
-};
+userSchema.methods.isCorrectPassword = (password, encryptedPass) => __awaiter(void 0, void 0, void 0, function* () {
+    return bcrypt_1.default.compare(password, encryptedPass);
+});
 const User = (0, mongoose_1.model)("User", userSchema);
 exports.default = User;
 //# sourceMappingURL=User.js.map

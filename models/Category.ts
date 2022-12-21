@@ -25,7 +25,6 @@ const CategorySchema = new Schema<ICategory>({
 });
 
 CategorySchema.pre("save", async function (next) {
-  console.log(this, "x");
   await utilsService.createDefaultArticle(this);
   next();
 });

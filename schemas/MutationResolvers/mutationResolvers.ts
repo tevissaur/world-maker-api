@@ -32,16 +32,13 @@ const Mutation: MutationResolvers = {
 		try {
 			const user = await User.findOne({ email });
 
-			if (!user) {
-				throw new Error("No Profile with that email");
-			}
+			if (!user) throw new Error("No Profile with that email");
 
 			const correctPw = await user.schema.methods.isCorrectPassword(password, user.password);
 
-			if (!correctPw) {
-				throw new Error("Incorrect password!");
-			}
+			if (!correctPw) throw new Error("Incorrect password!");
 			const token = signToken(user);
+
 			return { token, user };
 		} catch (err) {
 			return (err);

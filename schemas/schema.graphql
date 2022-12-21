@@ -334,6 +334,9 @@ input WorldInput {
 type Query {
   getSingleSubject(_id: ID, modelName: String): ArticleSubject 
   getAllOfOneSubject(modelName: String): [ArticleSubject]
+  getMe(_id: ID): User
+  getWorld(_id: ID): World
+  getCharacter(_id: ID): Character
 }
 
 type Mutation {

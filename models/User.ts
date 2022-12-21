@@ -25,7 +25,7 @@ const userSchema = new Schema<User>({
 
   userCreated: {
     type: String,
-    default: Date.now.toString()
+    default: Date.now().toString()
   },
   worlds: [
     {
