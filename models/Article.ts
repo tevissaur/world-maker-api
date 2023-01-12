@@ -1,4 +1,5 @@
 import { Schema, Types, model } from 'mongoose'
+import { AllModelRefs } from '../utils/constants';
 
 
 export interface IArticle {
@@ -17,7 +18,7 @@ const ArticleSchema = new Schema<IArticle>({
     subjectModel: {
         type: String,
         required: true,
-        enum: ['Article', 'Character', 'City', 'Class', 'City', 'Country', 'God', 'Landmark', 'Monster', 'Race', 'Region', 'Religion', 'User', 'World']
+        enum: AllModelRefs
     },
     title: {
         type: String,

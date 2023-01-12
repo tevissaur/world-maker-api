@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import { IFeat } from "./Feat";
 
 export interface IClass {
     name: string;
@@ -12,9 +13,9 @@ export interface ISubClass {
     features: IClassFeature[];
 }
 
-export interface IClassFeature {
+export interface IClassFeature extends IFeat {
     name: string;
-    requiredLevel: number;
+    prerequisites: number;
 }
 
 const ClassSchema = new Schema<IClass>({

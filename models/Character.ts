@@ -1,10 +1,23 @@
 import { Schema, Types, model } from 'mongoose';
 import { ISubClass } from './Class';
+import { IEquipment } from './Equipment';
+import { IFeat } from './Feat';
 
 interface ICharacterClasses {
     class: Types.ObjectId;
     level: number;
     subClass: ISubClass
+}
+
+interface IAbilityScores {
+    strength: string;
+    dexterity: string;
+    constitution: string;
+}
+
+interface ISkill {
+    name: string;
+    
 }
 
 interface ICharacter {
@@ -23,6 +36,11 @@ interface ICharacter {
     organizations: Schema.Types.ObjectId[];
     residentCity: Types.ObjectId;
     isNPC: boolean;
+    feats: IFeat[];
+    abilityScores: IAbilityScores;
+    archetypes?: [];
+    inventory: IEquipment[];
+    skills: ISkill[];
 }
 
 const CharacterSchema = new Schema<ICharacter>({
@@ -74,6 +92,10 @@ const CharacterSchema = new Schema<ICharacter>({
     bonds: [String],
     goals: [String],
     fears: [String],
+    feats: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Feat'
+    }],
     organizations: [{
         type: Schema.Types.ObjectId,
         ref: 'Organization'
@@ -86,7 +108,20 @@ const CharacterSchema = new Schema<ICharacter>({
     isNPC: {
         type: Boolean,
         default: false
-    }
+    },
+    archetypes: [String],
+    inventory: [{
+        name: String,
+        description: String,
+        stats: {
+            dice: String,
+            numDice: Number,
+            bonus: String
+        }
+    }],
+    skills: [{
+        name: String
+    }]
 })
 
 const Character = model<ICharacter>('Character', CharacterSchema)
